@@ -15,7 +15,7 @@ const HomePage = () => {
             flexDirection:'column',
             justifyContent: 'space-between'
         }}>
-        {true ? <Box  sx={{
+        {false ? <Box  sx={{
             paddingTop: 18,
             paddingLeft: 12,
             marginRight: 'auto',
@@ -29,20 +29,31 @@ const HomePage = () => {
                 <Button size ={18} value="Nominate"/>
             </Box> : 
             <Box sx={{
-                paddingTop: 32,
+                paddingTop: 30,
                 color: 'white',
                 textAlign: 'center'
             }}>
-                <Typography variant="h4" sx={{
+                <Typography variant="h3" sx={{
                     letterSpacing: 2,
-                    fontWeight: 700
+                    fontWeight: 750
                 }}>WELCOME TO SALTEDPOPCORN.</Typography>
                 <Typography variant="h7" sx={{
                     letterSpacing: 2,
                     fontWeight: 300
                 }}>Where you get salty about movies. (And rate them to win Movie Contests. ;))</Typography>
             </Box>}
-            <Box>
+            <Box sx={{
+                display: 'flex',
+                flexDirection: 'column'
+            }}>
+                <Typography sx={{
+                    color: 'white',
+                    paddingBottom: 1,
+                    paddingLeft: 12,
+                    fontSize: 20,
+                    fontWeight: 600,
+                    letterSpacing: 2
+                }}>TOP PICKS:</Typography>
                 <Tiles/>
             </Box>
         </Container>

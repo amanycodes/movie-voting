@@ -6,6 +6,7 @@ import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import SearchIcon from '@mui/icons-material/Search';
 import { IconButton, Input, TextField } from "@mui/material";
+import T_Button from "../../components/T_button";
 
 const Navbar = () => {
     const [showField, setShowField] = useState(false)
@@ -29,10 +30,10 @@ const Navbar = () => {
                 p: 0,
                 margin: 1,
             }}>
-                <MenuItem value = "DASHBOARD"/>
+                <T_Button path = '/' size = {15} value = "DASHBOARD"/>
                 <MenuItem value = "MOVIES"/>
                 <MenuItem value = "TV SHOWS"/>
-                <MenuItem value = "LEADERBOARD"/>
+                <T_Button path = '/leaderboard' size = {15} value = "LEADERBOARD"/>
             </Box>
 
             {/* right items */}
