@@ -1,16 +1,18 @@
 import { Box } from "@mui/system"
 import back from '../assets/background.png'
+import movieBack from '../assets/john wick bg.png'
 
  const BackgroundImage = ()=> {
     return(
         <Box component= "img"
         sx={{
-            width: '100vw',
-            height: '100%',
+            width: '100%',
+            height: '100vh',
           position: 'absolute',
-          zIndex: -1
+          zIndex: -1,
+          objectFit: 'cover'
         }}
-        src={back}
+        src={true ? back : movieBack}
         />
     )
  }

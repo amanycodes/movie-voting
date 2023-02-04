@@ -21,14 +21,17 @@ export default function BasicMenu(props) {
         sx = {{
             color: 'white',
             '&:hover':{
-                color: 'purple',
-                backgroundColor: 'transparent'
+                color: 'white',
+                backgroundColor: 'rgba(128,0,128,.3)'
             },
             borderRadius: 5,
             paddingLeft: 2,
             paddingRight: 2,
-            paddingTop: 0,
-            paddingBottm: 0
+            paddingTop: 1,
+            paddingBottm: 0,
+            fontSize: 15,
+            fontWeight: 300,
+            letterSpacing: 1
         }}
         id="basic-button"
         aria-controls={open ? 'basic-menu' : undefined}

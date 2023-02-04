@@ -39,17 +39,16 @@ const Navbar = () => {
             <Box sx={{
                 display: 'flex',
                 alignItems: 'center'
-            }}>
+            }}
+            >
                 {showField ? <Input sx={{
                     paddingLeft: 2,
+                    paddingRight: 2,
                     border: 2,
                     borderRadius: 5,
                     color: 'white',
-                    fontSize: 10,
-                    width: 300,
-                    '&:active':{
-                        textDecoration:'none'
-                    }
+                    fontSize: 12,
+                    width: 200,
                 }}
                 disableUnderline ={true}
                 /> : 
@@ -60,7 +59,7 @@ const Navbar = () => {
                 <SearchIcon />
                 </IconButton>
                  }
-                <Button value = "Sign In"/>
+                <Button size ={14} value = "Sign In"/>
             </Box>
         </Container>
     )
