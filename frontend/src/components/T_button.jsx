@@ -2,23 +2,23 @@ import { Typography } from '@mui/material';
 import Button from '@mui/material/Button';
 import { Link } from "react-router-dom";
 
-const R_button = (props) => {
+const T_Button = (props) => {
     const size = props.size
     return( 
-            <Link to= '/login' style={{ textDecoration: 'none' }}>
-            <Button variant="outline"
+            <Link to= {`${props.path}`} style={{ textDecoration: 'none' }}>
+            <Button variant="text"
             sx= {{
-            borderRadius:7,
-            border: 2,
             padding: 0,
-            paddingLeft: 3,
-            paddingRight: 3,
-            borderColor: 'white',
-            margin: 1,
+            paddingLeft: 2,
+            paddingRight: 2,
+            paddingTop: 1.2,
+            paddingBottom: 1.2,
+            margin: 0,
+            letterSpacing: 1,
+            borderRadius: 6,
             
             '&:hover': {
-                borderColor: 'purple',
-                backgroundColor: 'purple',
+                backgroundColor: 'rgba(128,0,128,.3)',
                 transition: '200ms'
             }
             
@@ -34,4 +34,4 @@ const R_button = (props) => {
     )
 }
 
-export default R_button
+export default T_Button

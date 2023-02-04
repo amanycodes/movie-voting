@@ -6,6 +6,7 @@ import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import SearchIcon from '@mui/icons-material/Search';
 import { IconButton, Input, TextField } from "@mui/material";
+import T_Button from "../../components/T_button";
 
 const Navbar = () => {
     const [showField, setShowField] = useState(false)
@@ -29,27 +30,26 @@ const Navbar = () => {
                 p: 0,
                 margin: 1,
             }}>
-                <MenuItem value = "DASHBOARD"/>
+                <T_Button path = '/' size = {15} value = "DASHBOARD"/>
                 <MenuItem value = "MOVIES"/>
                 <MenuItem value = "TV SHOWS"/>
-                <MenuItem value = "LEADERBOARD"/>
+                <T_Button path = '/leaderboard' size = {15} value = "LEADERBOARD"/>
             </Box>
 
             {/* right items */}
             <Box sx={{
                 display: 'flex',
                 alignItems: 'center'
-            }}>
+            }}
+            >
                 {showField ? <Input sx={{
                     paddingLeft: 2,
+                    paddingRight: 2,
                     border: 2,
                     borderRadius: 5,
                     color: 'white',
-                    fontSize: 10,
-                    width: 300,
-                    '&:active':{
-                        textDecoration:'none'
-                    }
+                    fontSize: 12,
+                    width: 200,
                 }}
                 disableUnderline ={true}
                 /> : 
@@ -60,7 +60,7 @@ const Navbar = () => {
                 <SearchIcon />
                 </IconButton>
                  }
-                <Button value = "Sign In"/>
+                <Button size ={14} value = "Sign In"/>
             </Box>
         </Container>
     )
