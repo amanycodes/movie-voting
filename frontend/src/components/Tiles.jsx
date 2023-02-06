@@ -17,13 +17,16 @@ const Tiles = () => {
                     marginTop: 'auto',
                     marginBottom: 'auto',
                     color: 'white', 
-                    fontSize: 40,
+                    fontSize: 30,
                     '&:hover':{
                         color: 'white',
                         backgroundColor: 'rgba(128,0,128,.3)',
                         transition: '200ms'
                     }
                 }} />
+        </Grid>
+        <Grid item >
+            <TileItem />
         </Grid>
         <Grid item >
             <TileItem />
@@ -56,7 +59,7 @@ const Tiles = () => {
                 marginTop: 'auto',
                 marginBottom: 'auto',
                     color: 'white', 
-                    fontSize: 40,
+                    fontSize: 30,
                     '&:hover':{
                         color: 'white',
                         backgroundColor: 'rgba(128,0,128,.3)',

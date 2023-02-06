@@ -1,6 +1,7 @@
 import { Card, InputBase, Typography } from "@mui/material"
 import { Box, Container } from "@mui/system"
 import React, { useState } from "react"
+import { Link } from "react-router-dom"
 import C_button from "../../components/C_button"
 
 
@@ -24,12 +25,12 @@ const LoginPage = () => {
                 backgroundColor: 'rgba(37,37,37,.5)',
                 display: 'flex',
                 flexDirection: 'column',
-                justifyContent: 'space-around',
+                justifyContent: 'space-evenly',
                 alignItems: 'center'
             }}>
                 <Typography variant="h4" sx = {{
                     color: 'white',
-                    paddingTop: 0,
+                    paddingTop: 5,
                     fontWeight: 600,
                     letterSpacing: 1
                 }}>SIGN IN</Typography>
@@ -40,7 +41,7 @@ const LoginPage = () => {
                 <InputBase type="text" placeholder = 'E-mail' sx={{
                     width: 300,
                     backgroundColor: '#D9D9D9',
-                    marginBottom: 6,
+                    marginTop: 4,                    marginBottom: 6,
                     borderRadius: 2,
                     color: '',
                     paddingLeft: 2,
@@ -58,18 +59,24 @@ const LoginPage = () => {
                     paddingBottom: 1,
                 }}/>
                 </Box>
-                <C_button size = {20} value='Sign In'/>
-                <Typography sx={{color: 'white'}}>Dont have an Account? <Typography onClick={handleClick} sx={{
+                <Box sx={{
+                    marginTop: 0,
+                    marginBottom: 8
+                }}>
+                    <C_button size = {25} value='Sign In'/>
+                </Box>
+                <Typography sx={{color: 'white', paddingBottom: 4}}>Dont have an Account? <Typography onClick={handleClick} sx={{
                     display : 'inline',
+                    color: 'purple',
                     '&:hover':{
-                        color: 'purple',
+                        textDecoration: 'underline',
                         cursor: 'pointer'
                     }
                 }}> Sign Up</Typography></Typography>
             </Card> 
         </Container> : 
         <Container
-            id='sign-Up'
+            id='sign-up'
             sx={{
                 paddingTop: 10
             }}>
@@ -80,12 +87,11 @@ const LoginPage = () => {
                     backgroundColor: 'rgba(37,37,37,.5)',
                     display: 'flex',
                     flexDirection: 'column',
-                    justifyContent: 'space-around',
+                    justifyContent: 'space-evenly',
                     alignItems: 'center'
                 }}>
                     <Typography variant="h4" sx = {{
                         color: 'white',
-                        paddingTop: 0,
                         fontWeight: 600,
                         letterSpacing: 1
                     }}>SIGN UP</Typography>
@@ -93,10 +99,20 @@ const LoginPage = () => {
                         display: 'flex',
                         flexDirection: 'column'
                     }}>
+                    <InputBase type="text" placeholder = 'Username' sx={{
+                        width: 300,
+                        backgroundColor: '#D9D9D9',
+                        marginBottom: 3,
+                        borderRadius: 2,
+                        color: '',
+                        paddingLeft: 2,
+                        paddingTop: 1,
+                        paddingBottom: 1,
+                    }}/>
                     <InputBase type="text" placeholder = 'E-mail' sx={{
                         width: 300,
                         backgroundColor: '#D9D9D9',
-                        marginBottom: 6,
+                        marginBottom: 3,
                         borderRadius: 2,
                         color: '',
                         paddingLeft: 2,
@@ -106,17 +122,7 @@ const LoginPage = () => {
                     <InputBase type="text" placeholder = 'Password' sx={{
                         width: 300,
                         backgroundColor: '#D9D9D9',
-                        marginBottom: 6,
-                        borderRadius: 2,
-                        color: '',
-                        paddingLeft: 2,
-                        paddingTop: 1,
-                        paddingBottom: 1,
-                    }}/>
-                    <InputBase type="text" placeholder = 'Password' sx={{
-                        width: 300,
-                        backgroundColor: '#D9D9D9',
-                        marginBottom: 6,
+                        marginBottom: 0,
                         borderRadius: 2,
                         color: '',
                         paddingLeft: 2,
@@ -124,14 +130,27 @@ const LoginPage = () => {
                         paddingBottom: 1,
                     }}/>
                     </Box>
-                    <C_button size = {20} value='Sign Up'/>
-                    <Typography sx={{color: 'white'}}>Aldready have an Account? <Typography onClick={handleClick} sx={{
+                    <Box sx={{
+                        marginBottom: 2
+                    }}>
+                        <C_button size = {25} value='Sign Up'/>
+                    </Box>
+                    <Typography variant="subtitle2" sx={{color: 'white', marginRight: 'auto'}}>Aldready have an Account? <Typography onClick={handleClick} sx={{
                     display : 'inline',
+                    color: 'purple',
                     '&:hover':{
-                        color: 'purple',
+                        textDecoration: 'underline',
                         cursor: 'pointer'
                     }
                 }}> Sign In</Typography></Typography>
+                <Typography variant="subtitle2" sx={{color: 'white',  marginRight: 'auto'}}>Are you a Creator? <Typography sx={{
+                    display : 'inline',
+                    color: 'purple',
+                    '&:hover':{
+                        textDecoration: 'underline',
+                        cursor: 'pointer'
+                    }
+                }}><Link to='/' style={{textDecoration: 'none', color: 'purple'}}>Creator Sign In</Link></Typography></Typography>
                 </Card> 
             </Container>
         }
