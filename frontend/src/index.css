@@ -3,6 +3,10 @@
 
 body, html, *{
   margin: 0;
-  font-family: 'League Spartan', sans-serif;
+  font-family: 'LeagueSpartan', sans-serif;
 }
 
+@font-face {
+  font-family: "LeagueSpartan", sans-serif;
+  src: url("./fonts/LeagueSpartan.ttf") format("truetype");
+}

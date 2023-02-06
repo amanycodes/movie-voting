@@ -13,6 +13,7 @@ import CreateContest    from "./pages/createContest/CreateContest"
 import CreatorLoginPage from "./pages/creatorLogin/CreatorLogin"
 import Navbar           from "./pages/navbar/Navbar"     
 import BackgroundImage from "./components/BackgroundImage";
+import MovieInfo from "./pages/movieInfo/MovieInfo";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
           <Route path = "/createContest" element = {<CreateContest    />} />
           <Route path = "/adminLogin"    element = {<AdminLogin       />} />
           <Route path = "/leaderboard"   element = {<LeaderBoard      />} />
+          <Route path = "/movieid"   element = {<MovieInfo     />} />
         </Routes>
       </BrowserRouter>
     </div>

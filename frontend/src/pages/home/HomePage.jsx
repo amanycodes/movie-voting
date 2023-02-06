@@ -29,13 +29,13 @@ const HomePage = () => {
                 <Button size ={18} value="Nominate"/>
             </Box> : 
             <Box sx={{
-                paddingTop: 30,
+                paddingTop: 45,
                 color: 'white',
                 textAlign: 'center'
             }}>
                 <Typography variant="h3" sx={{
                     letterSpacing: 2,
-                    fontWeight: 750
+                    fontWeight: 900
                 }}>WELCOME TO SALTEDPOPCORN.</Typography>
                 <Typography variant="h7" sx={{
                     letterSpacing: 2,
