@@ -6,7 +6,7 @@ import "../fonts/LeagueSpartan.ttf"
 const C_button = (props) => {
     const size = props.size
     return( 
-            <Link to= '/login' style={{ textDecoration: 'none' }}>
+            <Link to= {`${props.path}`} style={{ textDecoration: 'none' }}>
             <Button variant="contained"
             sx= {{
             borderRadius:7,

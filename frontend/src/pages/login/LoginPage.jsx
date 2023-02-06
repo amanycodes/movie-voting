@@ -30,7 +30,7 @@ const LoginPage = () => {
             }}>
                 <Typography variant="h4" sx = {{
                     color: 'white',
-                    paddingTop: 5,
+                    
                     fontWeight: 600,
                     letterSpacing: 1
                 }}>SIGN IN</Typography>
@@ -51,7 +51,7 @@ const LoginPage = () => {
                 <InputBase type="text" placeholder = 'Password' sx={{
                     width: 300,
                     backgroundColor: '#D9D9D9',
-                    marginBottom: 6,
+                    marginBottom: 2,
                     borderRadius: 2,
                     color: '',
                     paddingLeft: 2,
@@ -61,11 +61,11 @@ const LoginPage = () => {
                 </Box>
                 <Box sx={{
                     marginTop: 0,
-                    marginBottom: 8
+                    marginBottom: 2
                 }}>
-                    <C_button size = {25} value='Sign In'/>
+                    <C_button size = {25} value='Sign In' path = '/login'/>
                 </Box>
-                <Typography sx={{color: 'white', paddingBottom: 4}}>Dont have an Account? <Typography onClick={handleClick} sx={{
+                <Typography variant="subtitle2" sx={{color: 'white'}}>Dont have an Account? <Typography onClick={handleClick} sx={{
                     display : 'inline',
                     color: 'purple',
                     '&:hover':{
@@ -73,7 +73,24 @@ const LoginPage = () => {
                         cursor: 'pointer'
                     }
                 }}> Sign Up</Typography></Typography>
-            </Card> 
+                <Typography variant="subtitle2" sx={{color: 'white'}}>Are you a Creator? <Typography sx={{
+                    display : 'inline',
+                    color: 'purple',
+                    '&:hover':{
+                        textDecoration: 'underline',
+                        cursor: 'pointer'
+                    }
+                }}><Link to='/creatorLogin' style={{textDecoration: 'none', color: 'purple'}}>Creator Sign In</Link></Typography></Typography>
+            </Card>
+            <Typography sx={{
+                    marginLeft: 44,
+                    color: 'purple',
+                    '&:hover':{
+                        textDecoration: 'underline',
+                        cursor: 'pointer'
+                    }
+                }}><Link to='/adminLogin' style={{textDecoration: 'none', color: 'purple'}}>Admin Login</Link></Typography>
+            
         </Container> : 
         <Container
             id='sign-up'
@@ -133,9 +150,9 @@ const LoginPage = () => {
                     <Box sx={{
                         marginBottom: 2
                     }}>
-                        <C_button size = {25} value='Sign Up'/>
+                        <C_button size = {25} value='Sign Up' path = '/login'/>
                     </Box>
-                    <Typography variant="subtitle2" sx={{color: 'white', marginRight: 'auto'}}>Aldready have an Account? <Typography onClick={handleClick} sx={{
+                    <Typography variant="subtitle2" sx={{color: 'white' }}>Aldready have an Account? <Typography onClick={handleClick} sx={{
                     display : 'inline',
                     color: 'purple',
                     '&:hover':{
@@ -143,15 +160,23 @@ const LoginPage = () => {
                         cursor: 'pointer'
                     }
                 }}> Sign In</Typography></Typography>
-                <Typography variant="subtitle2" sx={{color: 'white',  marginRight: 'auto'}}>Are you a Creator? <Typography sx={{
+                <Typography variant="subtitle2" sx={{color: 'white',  }}>Are you a Creator? <Typography sx={{
                     display : 'inline',
                     color: 'purple',
                     '&:hover':{
                         textDecoration: 'underline',
                         cursor: 'pointer'
                     }
-                }}><Link to='/' style={{textDecoration: 'none', color: 'purple'}}>Creator Sign In</Link></Typography></Typography>
+                }}><Link to='/creatorLogin' style={{textDecoration: 'none', color: 'purple'}}>Creator Sign In</Link></Typography></Typography>
                 </Card> 
+                <Typography sx={{
+                    marginLeft: 44,
+                    color: 'purple',
+                    '&:hover':{
+                        textDecoration: 'underline',
+                        cursor: 'pointer'
+                    }
+                }}><Link to='/adminLogin' style={{textDecoration: 'none', color: 'purple'}}>Admin Login</Link></Typography>
             </Container>
         }
             
