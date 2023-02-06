@@ -4,10 +4,12 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import IconButton from "@mui/material";
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import { Box, margin } from "@mui/system";
+import { ScrollMenu, VisibilityContext } from "react-horizontal-scrolling-menu";
+
 
 const Tiles = () => {
     return(
-    <Grid container direction= 'row' spacing={3} alignItems = 'center'>
+        <Grid container direction= 'row' spacing={3} alignItems = 'center'>
         <Grid item sx={{
             display: 'flex'
         }}>
@@ -68,9 +70,8 @@ const Tiles = () => {
                 }}/>
             
         </Grid>
-
-        
     </Grid>
+    
     )
 }
 

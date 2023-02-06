@@ -15,7 +15,7 @@ const HomePage = () => {
             flexDirection:'column',
             justifyContent: 'space-between'
         }}>
-        {false ? <Box  sx={{
+        {true ? <Box  sx={{
             paddingTop: 18,
             marginLeft: 13,
             marginRight: 'auto',
@@ -25,8 +25,8 @@ const HomePage = () => {
                     fontWeight: 600,
                     letterSpacing: 2
                 }}>JOHN WICK</Typography>
-                <Button size ={18} value="Read More" path='/movieid'/>  
-                <Button size ={18} value="Nominate"/>
+                <Button size ={20} value="Read More" path='/movieid'/>  
+                <Button size ={20} value="Nominate"/>
             </Box> : 
             <Box sx={{
                 paddingTop: 32,

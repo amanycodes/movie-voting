@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 const R_button = (props) => {
     const size = props.size
     return( 
-            <Link to= '/login' style={{ textDecoration: 'none' }}>
+            <Link to= {`${props.path}`} style={{ textDecoration: 'none' }}>
             <Button variant="outline"
             sx= {{
             borderRadius:7,
