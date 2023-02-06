@@ -1,5 +1,5 @@
 import { Typography } from "@mui/material"
-import { Box, Container, margin } from "@mui/system"
+import { Box, Container} from "@mui/system"
 import React from "react"
 import Button from "../../components/C_button"
 import Tiles from "../../components/Tiles"
@@ -25,7 +25,7 @@ const HomePage = () => {
                     fontWeight: 600,
                     letterSpacing: 2
                 }}>JOHN WICK</Typography>
-                <Button size ={18} value="Read More"/>
+                <Button size ={18} value="Read More" path='/movieid'/>  
                 <Button size ={18} value="Nominate"/>
             </Box> : 
             <Box sx={{
