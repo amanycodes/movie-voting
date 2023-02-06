@@ -12,7 +12,7 @@ import movieBack from '../assets/john wick bg.png'
           zIndex: -1,
           objectFit: 'cover'
         }}
-        src={true ? back : movieBack}
+        src={false ? back : movieBack}
         />
     )
  }
