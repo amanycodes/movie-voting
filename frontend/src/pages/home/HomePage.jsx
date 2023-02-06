@@ -15,7 +15,7 @@ const HomePage = () => {
             flexDirection:'column',
             justifyContent: 'space-between'
         }}>
-        {false ? <Box  sx={{
+        {true ? <Box  sx={{
             paddingTop: 18,
             marginLeft: 13,
             marginRight: 'auto',
