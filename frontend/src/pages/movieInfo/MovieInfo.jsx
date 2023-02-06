@@ -8,9 +8,11 @@ function MovieInfo(){
     return(
         <Container 
         sx={{
-            marginTop: 13,
-            marginLeft: 12,
-            width: '45vw'
+            marginTop: '2rem',
+            marginLeft: '100px',
+            width: '45vw',
+            display: 'flex',
+            flexDirection: 'column'
 
         }}>
             <Box
@@ -21,13 +23,14 @@ function MovieInfo(){
                 component="img"
                 src={tileImg}
                 sx={{
-                    width: '12rem',
+                    width: '200px',
+                    height: '100%',
                     borderRadius: '10px'
                 }}>
                 </Box>
                 <Box
                 sx={{
-                    marginLeft: 9
+                    marginLeft: '4rem'
                 }}>
                     <Typography variant="h3" sx={{
                         color: 'white',
@@ -45,7 +48,7 @@ function MovieInfo(){
                     }}>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Soluta at enim ullam eaque esse cupiditate. Dolorem quidem repellendus molestiae, ullam voluptatem velit consequatur obcaecati error perspiciatis, perferendis natus, excepturi suscipit!</Typography>
                     <Box sx={{
                         display: 'flex',
-                        justifyContent: "space-around",
+                        marginRight: 'auto',
                         marginTop: 7
                     }}>
                         <Button value="TRAILER" size={19} />
@@ -55,8 +58,7 @@ function MovieInfo(){
             </Box
             >    
             <Box sx={{
-                marginBottom: 0,
-                marginTop: 9
+                marginTop: '50px'
             }}>
                 <Box>
                     <Typography sx={{

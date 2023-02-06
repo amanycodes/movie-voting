@@ -15,9 +15,9 @@ const HomePage = () => {
             flexDirection:'column',
             justifyContent: 'space-between'
         }}>
-        {true ? <Box  sx={{
+        {false ? <Box  sx={{
             paddingTop: 18,
-            paddingLeft: 12,
+            marginLeft: 13,
             marginRight: 'auto',
         }} id='hover-action'>
                 <Typography variant="h3" sx={{
@@ -29,7 +29,7 @@ const HomePage = () => {
                 <Button size ={18} value="Nominate"/>
             </Box> : 
             <Box sx={{
-                paddingTop: 45,
+                paddingTop: 32,
                 color: 'white',
                 textAlign: 'center'
             }}>
