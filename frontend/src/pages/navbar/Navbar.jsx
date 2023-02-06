@@ -7,6 +7,7 @@ import Container from '@mui/material/Container';
 import SearchIcon from '@mui/icons-material/Search';
 import { IconButton, Input, TextField } from "@mui/material";
 import T_Button from "../../components/T_button";
+import AccountMenu from "../../components/loggedInTile";
 
 const Navbar = () => {
     const [showField, setShowField] = useState(false)
@@ -60,7 +61,8 @@ const Navbar = () => {
                 <SearchIcon />
                 </IconButton>
                  }
-                <Button size ={14} value = "Sign In"/>
+                 {false ? <Button size ={14} value = "Sign In" path= 'login'/> : <AccountMenu />}
+                
             </Box>
         </Container>
     )
