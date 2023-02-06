@@ -7,13 +7,13 @@ import tileImg from '../assets/poster.jpg'
 const TileItem = () => {
     return(
         <Card sx={{
-            width: 160,
-            height: 240,
+            width: 140,
+            height: 200,
 
             transition: '200ms ease-out',
             '&:hover': {
-                width: 162,
-                height: 242,
+                width: 150,
+                height: 220,
                 border: 3,
                 borderColor: 'white'
                 

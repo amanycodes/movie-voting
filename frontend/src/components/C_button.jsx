@@ -1,6 +1,7 @@
 import { Typography } from '@mui/material';
 import Button from '@mui/material/Button';
 import { Link } from "react-router-dom";
+import "../fonts/LeagueSpartan.ttf"
 
 const C_button = (props) => {
     const size = props.size
@@ -30,7 +31,8 @@ const C_button = (props) => {
         disableElevation>
                 <Typography sx={{
                     fontSize: size, 
-                    color: 'white', 
+                    color: 'white',
+                    fontFamily: 'League Spartan' 
                     }}>{props.value}</Typography>
         </Button>
             </Link>
