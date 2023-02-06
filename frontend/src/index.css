@@ -10,3 +10,7 @@ body, html, *{
   font-family: "LeagueSpartan", sans-serif;
   src: url("./fonts/LeagueSpartan.ttf") format("truetype");
 }
+
+::-webkit-scrollbar {
+  display: none;
+}
