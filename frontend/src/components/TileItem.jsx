@@ -9,13 +9,14 @@ const TileItem = () => {
         <Card sx={{
             width: 140,
             height: 200,
-
+            display: 'inline-block',
             transition: '200ms ease-out',
+            marginRight: 1,
+            marginLeft: 1,
             '&:hover': {
-                width: 150,
-                height: 220,
                 border: 3,
-                borderColor: 'white'
+                borderColor: 'white',
+                scale: 10
                 
             }
         }} raised={true}>
