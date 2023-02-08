@@ -48,7 +48,7 @@ const Tiles = (props) => {
     }}>
         {moviesData.map((movie)=>{
             return(
-                <TileItem key = {movie.id} img = {movie.poster_path} path={movie.id}/>
+                <TileItem key = {movie.id} img = {movie.poster_path} path={movie.id} changeId = {props.changeState}/>
             )
         })}
     </Box>
