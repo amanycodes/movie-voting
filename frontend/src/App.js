@@ -3,7 +3,7 @@ import {
   BrowserRouter,
   Routes,
 } from "react-router-dom";
-import { useEffect, useState} from "react";
+import { useContext, useEffect, useState} from "react";
 
 //PAGES
 import LoginPage        from "./pages/login/LoginPage"
@@ -19,15 +19,19 @@ import { ThemeContext } from "@emotion/react";
 import { globalState, GlobalContext} from "./globalStates/State";
 
 function App() {
-
+  const [state, setState] = useState(null)
+  function changeState(){
+    setState(globalState.hoverState)
+  }
+  console.log(state)
   return (
     <div className="App">
       <BrowserRouter>
       <GlobalContext.Provider value={{globalState}}>
-          <BackgroundImage />
+          <BackgroundImage path = {state}/>
           <Navbar />
           <Routes>
-            <Route path = "/"              element = {<HomePage />}/>
+            <Route path = "/"              element = {<HomePage stateChange={changeState}/>}/>
             <Route path = "/login"         element = {<LoginPage        />} />
             <Route path = "/creatorLogin"  element = {<CreatorLoginPage />} />
             <Route path = "/createContest" element = {<CreateContest    />} />
