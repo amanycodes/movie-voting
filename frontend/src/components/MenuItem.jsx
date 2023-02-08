@@ -45,7 +45,6 @@ export default function BasicMenu(props) {
 
 
       <Menu
-        
         id="basic-menu"
         onClose={handleClose}
         anchorEl={anchorEl}
@@ -54,7 +53,13 @@ export default function BasicMenu(props) {
           'aria-labelledby': 'basic-button',
         }}
       >
-        <MenuItem  onClick={handleClose}>Profile</MenuItem>
+        <MenuItem sx={{
+          transition: '200ms ease-out',
+          '&:hover': {
+            textDecoration: 'underline',
+            textDecorationColor: 'purple',
+          }
+        }} onClick={handleClose}>Profile</MenuItem>
         <MenuItem  onClick={handleClose}>My account</MenuItem>
         <MenuItem  onClick={handleClose}>Logout</MenuItem>
       </Menu>

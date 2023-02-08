@@ -3,11 +3,13 @@ import TileItem from "./TileItem"
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import { Box, margin } from "@mui/system";
+import { useState, useEffect } from "react";
 
 
 
 
-const Tiles = () => {
+const Tiles = (props) => {
+    const moviesData = props.moviesArray
 
     const slideLeft = ()=>{
         var slider = document.getElementsByClassName('slider')
@@ -42,19 +44,13 @@ const Tiles = () => {
         height: '100%',
         overflowX: 'scroll',
         whiteSpace: 'nowrap',
-        scrollBehavior: 'smooth'
+        scrollBehavior: 'smooth',
     }}>
-        <TileItem/>
-        <TileItem/>
-        <TileItem/>
-        <TileItem/>
-        <TileItem/>
-        <TileItem/>
-        <TileItem/>
-        <TileItem/>
-        <TileItem/>
-        <TileItem/>
-        <TileItem/>
+        {moviesData.map((movie)=>{
+            return(
+                <TileItem key = {movie.id} img = {movie.poster_path} path={movie.id}/>
+            )
+        })}
     </Box>
         <ArrowForwardIosIcon onClick={slideRight} sx={{
                         padding: 2,
@@ -62,6 +58,7 @@ const Tiles = () => {
                     marginTop: 'auto',
                     marginBottom: 'auto',
                         color: 'white', 
+
                         fontSize: 30,
                         '&:hover':{
                             color: 'white',
