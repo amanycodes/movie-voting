@@ -20,6 +20,7 @@ export default function BasicMenu(props) {
       <Button
         sx = {{
             color: 'white',
+            fontFamily: 'League Spartan',
             '&:hover':{
                 color: 'white',
                 backgroundColor: 'rgba(128,0,128,.3)'
@@ -29,9 +30,8 @@ export default function BasicMenu(props) {
             paddingRight: 2,
             paddingTop: 1,
             paddingBottm: 0,
-            fontSize: 15,
-            fontWeight: 300,
-            letterSpacing: 1
+            fontSize: '1rem',
+            letterSpacing: '0.1em'
         }}
         id="basic-button"
         aria-controls={open ? 'basic-menu' : undefined}
