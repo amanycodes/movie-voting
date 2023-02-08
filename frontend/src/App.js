@@ -29,9 +29,9 @@ function App() {
       <BrowserRouter>
       <GlobalContext.Provider value={{globalState}}>
           <BackgroundImage path = {state}/>
-          <Navbar />
+          <Navbar/>
           <Routes>
-            <Route path = "/"              element = {<HomePage stateChange={changeState}/>}/>
+            <Route path = "/"              element = {<HomePage stateChange={changeState} state={state}/>}/>
             <Route path = "/login"         element = {<LoginPage        />} />
             <Route path = "/creatorLogin"  element = {<CreatorLoginPage />} />
             <Route path = "/createContest" element = {<CreateContest    />} />

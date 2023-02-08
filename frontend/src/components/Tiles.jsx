@@ -9,12 +9,10 @@ import { useState, useEffect } from "react";
 
 
 const Tiles = (props) => {
-<<<<<<< HEAD
-    const movies = props.moviesArray
-=======
+
     const moviesData = props.moviesArray
 
->>>>>>> 752b2be03757f9d88bd395801ee48b12c049040f
+
     const slideLeft = ()=>{
         var slider = document.getElementsByClassName('slider')
         slider.scrollLeft = slider.scrollLeft - 240
@@ -50,19 +48,13 @@ const Tiles = (props) => {
         whiteSpace: 'nowrap',
         scrollBehavior: 'smooth',
     }}>
-<<<<<<< HEAD
-       {movies.map((movie)=>{
-        return(
-            <TileItem key={movie.id} img = {movie.poster_path} path={movie.id} />
-        )
-       })}
-=======
+
         {moviesData.map((movie)=>{
             return(
                 <TileItem key = {movie.id} img = {movie.poster_path} path={movie.id} changeId = {props.changeState}/>
             )
         })}
->>>>>>> 752b2be03757f9d88bd395801ee48b12c049040f
+
     </Box>
         <ArrowForwardIosIcon onClick={slideRight} sx={{
                         padding: 2,

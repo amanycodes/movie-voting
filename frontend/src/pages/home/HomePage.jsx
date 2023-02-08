@@ -3,11 +3,10 @@ import { Box, Container} from "@mui/system"
 import React, { useEffect, useState } from "react"
 import Button from "../../components/C_button"
 import Tiles from "../../components/Tiles"
-import { useState, useEffect } from "react"
 
 const HomePage = (props) => {
     const [movies, setMovies] = useState([]);
-
+    
     const url = "https://api.themoviedb.org/3/movie/popular?api_key=09801cd0f41d3548096eac7d4a25b6a1&language=en-US&page=1";
     useEffect(() => {
         fetchMovies();
@@ -20,6 +19,12 @@ const HomePage = (props) => {
         setMovies(movies.results);
     };
 
+    const moviePath = movies.map((movie)=>{
+        const {id, original_title} = movie
+        return ({id, original_title})
+      })
+
+    let neededMovie = moviePath.find((movie)=> movie.id === props.state )
     return(
 
         <Container sx={{
@@ -30,7 +35,7 @@ const HomePage = (props) => {
             flexDirection:'column',
             justifyContent: 'space-between'
         }}>
-        {false ? <Box  sx={{
+        {props.state ? <Box  sx={{
             paddingTop: 18,
             marginLeft: 13,
             marginRight: 'auto',
@@ -39,7 +44,7 @@ const HomePage = (props) => {
                     color: 'white',
                     fontWeight: 600,
                     letterSpacing: 2
-                }}>{}</Typography>
+                }}>{neededMovie.original_title}</Typography>
                 <Button size ={20} value="Read More" path='/movieid'/>  
                 <Button size ={20} value="Nominate"/>
             </Box> : 

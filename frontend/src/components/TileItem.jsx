@@ -7,10 +7,7 @@ import { useContext } from 'react';
 import { GlobalContext } from '../globalStates/State';
 
 const TileItem = (props) => {
-<<<<<<< HEAD
-    function handleHover(){
-      console.log(props.path)
-=======
+
     const context = useContext(GlobalContext)
     
     const handleHover = ()=>{
@@ -44,12 +41,9 @@ const TileItem = (props) => {
                     
                 }}
                 component='img'
-<<<<<<< HEAD
-                src={`https://images.tmdb.org/t/p/original${props.img}`}
-                onMouseOver={handleHover}
-=======
+
                 src={`https://image.tmdb.org/t/p/w500${props.img}`}
->>>>>>> 752b2be03757f9d88bd395801ee48b12c049040f
+
                 />
             </CardContent>
         </Card>
