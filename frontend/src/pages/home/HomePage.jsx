@@ -1,6 +1,7 @@
 import { Typography } from "@mui/material"
 import { Box, Container} from "@mui/system"
 import React, { useEffect, useState } from "react"
+import { Link } from "react-router-dom"
 import Button from "../../components/C_button"
 import Tiles from "../../components/Tiles"
 
@@ -32,7 +33,11 @@ const HomePage = (props) => {
                     fontWeight: 600,
                     letterSpacing: 2
                 }}>{neededMovie.original_title}</Typography>
-                <Button size ={20} value="Read More" path='/movieid'/>  
+                <Link to='/movieid' style={{
+                    textDecoration: 'none'
+                }}>
+                    <Button size ={20} value="Read More" path='/movieid'/>  
+                </Link>    
                 <Button size ={20} value="Nominate"/>
             </Box> : 
             <Box sx={{

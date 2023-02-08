@@ -1,5 +1,6 @@
-import { Grid, Typography } from "@mui/material"
+import { Grid, Link, Typography } from "@mui/material"
 import { Box, Container } from "@mui/system"
+import { useEffect, useState } from "react"
 import tileImg from '../../assets/poster.jpg'
 import Button from "../../components/C_button"
 import "../../fonts/LeagueSpartan.ttf"
@@ -8,6 +9,46 @@ function MovieInfo(props){
     const movies = props.movieData
     const neededMovie = movies.find((movie)=> movie.id === props.state)
     console.log(neededMovie)
+    const Vurl = `http://api.themoviedb.org/3/movie/${props.state}/videos?api_key=09801cd0f41d3548096eac7d4a25b6a1`
+    
+    const [trailer, setTrailer] = useState()
+    const [castName, setCastName] = useState()
+    let a = []
+
+    useEffect(() => {
+        fetchTrailer();
+        fetchCast().then(() => {
+            return(
+                a = castName[0]
+            )
+        })
+    },[]);
+
+    const fetchTrailer = async () => {
+        const data = await fetch(Vurl);
+        const videos = await data.json();
+        setTrailer(videos.results[0].key)
+    };
+
+    const Curl = `https://api.themoviedb.org/3/movie/${props.state}/credits?api_key=09801cd0f41d3548096eac7d4a25b6a1&language=en-US`
+    
+    
+
+    const fetchCast = async () => {
+        const data = await fetch(Curl);
+        const castData = await data.json();
+        console.log(castData);
+        setCastName(castData.cast)
+        a=castName
+    };
+    
+    console.log(a)
+
+    // const castArray = castName.map((obj)=>{
+    //     return (
+    //         obj.name
+    //     )
+    // })
     return(
         <Container 
         sx={{
@@ -54,7 +95,13 @@ function MovieInfo(props){
                         marginRight: 'auto',
                         marginTop: 7
                     }}>
-                        <Button value="TRAILER" size={19}  />
+                        <Link sx={{
+                            textDecoration: 'none'
+                        }}
+                            target= '_blank'
+                            href={`https://www.youtube.com/watch?v=${trailer}`}> 
+                            <Button value="TRAILER" size={19}/>
+                        </Link>     
                         <Button value="NOMINATE" size={19}/>
                     </Box>
                 </Box>
@@ -78,42 +125,42 @@ function MovieInfo(props){
                                 fontSize: '1rem',
                                 fontFamily: "League Spartan"
                             }} variant="h6"
-                            >Jennifer Lawrence</Typography>
+                            >{}</Typography>
                         </Grid>
                         <Grid item xs={4}>
                             <Typography sx={{
                                 color: 'white',
                                 fontSize: '1rem',
                                 fontFamily: "League Spartan"
-                            }} variant="h6">Jennifer Lawrence</Typography>
+                            }} variant="h6">{}</Typography>
                         </Grid>
                         <Grid item xs={4}>
                             <Typography sx={{
                                 color: 'white',
                                 fontSize: '1rem',
                                 fontFamily: "League Spartan"
-                            }} variant="h6">Jennifer Lawrence</Typography>
+                            }} variant="h6">{}</Typography>
                         </Grid>
                         <Grid item xs={4}>
                             <Typography sx={{
                                 color: 'white',
                                 fontSize: '1rem',
                                 fontFamily: "League Spartan"
-                            }} variant="h6">Jennifer Lawrence</Typography>
+                            }} variant="h6">{}</Typography>
                         </Grid>
                         <Grid item xs={4}>
                             <Typography sx={{
                                 color: 'white',
                                 fontSize: '1rem',
                                 fontFamily: "League Spartan"
-                            }} variant="h6">Jennifer Lawrence</Typography>
+                            }} variant="h6">{}</Typography>
                         </Grid>
                         <Grid item xs={4}>
                             <Typography sx={{
                                 color: 'white',
                                 fontSize: '1rem',
                                 fontFamily: "League Spartan"
-                            }} variant="h6">Jennifer Lawrence</Typography>
+                            }} variant="h6">{}</Typography>
                         </Grid>
                     </Grid>
                 </Box>
