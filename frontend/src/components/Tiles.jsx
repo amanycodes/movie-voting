@@ -3,12 +3,18 @@ import TileItem from "./TileItem"
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import { Box, margin } from "@mui/system";
+import { useState, useEffect } from "react";
 
 
 
 
 const Tiles = (props) => {
+<<<<<<< HEAD
     const movies = props.moviesArray
+=======
+    const moviesData = props.moviesArray
+
+>>>>>>> 752b2be03757f9d88bd395801ee48b12c049040f
     const slideLeft = ()=>{
         var slider = document.getElementsByClassName('slider')
         slider.scrollLeft = slider.scrollLeft - 240
@@ -42,13 +48,21 @@ const Tiles = (props) => {
         height: '100%',
         overflowX: 'scroll',
         whiteSpace: 'nowrap',
-        scrollBehavior: 'smooth'
+        scrollBehavior: 'smooth',
     }}>
+<<<<<<< HEAD
        {movies.map((movie)=>{
         return(
             <TileItem key={movie.id} img = {movie.poster_path} path={movie.id} />
         )
        })}
+=======
+        {moviesData.map((movie)=>{
+            return(
+                <TileItem key = {movie.id} img = {movie.poster_path} path={movie.id}/>
+            )
+        })}
+>>>>>>> 752b2be03757f9d88bd395801ee48b12c049040f
     </Box>
         <ArrowForwardIosIcon onClick={slideRight} sx={{
                         padding: 2,
@@ -56,6 +70,7 @@ const Tiles = (props) => {
                     marginTop: 'auto',
                     marginBottom: 'auto',
                         color: 'white', 
+
                         fontSize: 30,
                         '&:hover':{
                             color: 'white',
