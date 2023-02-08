@@ -6,7 +6,7 @@ const LeaderBoard = () => {
         <Paper sx={{
             padding: '7rem',
             overflow: 'auto',
-            maxHeight: '50vh',
+            maxHeight: '60vh',
             background: 'none'
         }}>
             <List sx={{

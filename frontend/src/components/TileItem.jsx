@@ -7,6 +7,7 @@ import { useContext } from 'react';
 import { GlobalContext } from '../globalStates/State';
 
 const TileItem = (props) => {
+
     const context = useContext(GlobalContext)
     
     const handleHover = ()=>{
@@ -40,7 +41,9 @@ const TileItem = (props) => {
                     
                 }}
                 component='img'
+
                 src={`https://image.tmdb.org/t/p/w500${props.img}`}
+
                 />
             </CardContent>
         </Card>

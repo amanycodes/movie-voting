@@ -9,7 +9,9 @@ import { useState, useEffect } from "react";
 
 
 const Tiles = (props) => {
+
     const moviesData = props.moviesArray
+
 
     const slideLeft = ()=>{
         var slider = document.getElementsByClassName('slider')
@@ -46,11 +48,13 @@ const Tiles = (props) => {
         whiteSpace: 'nowrap',
         scrollBehavior: 'smooth',
     }}>
+
         {moviesData.map((movie)=>{
             return(
                 <TileItem key = {movie.id} img = {movie.poster_path} path={movie.id} changeId = {props.changeState}/>
             )
         })}
+
     </Box>
         <ArrowForwardIosIcon onClick={slideRight} sx={{
                         padding: 2,

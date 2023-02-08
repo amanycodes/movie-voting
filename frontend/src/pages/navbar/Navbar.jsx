@@ -8,9 +8,12 @@ import SearchIcon from '@mui/icons-material/Search';
 import { IconButton, Input, TextField } from "@mui/material";
 import T_Button from "../../components/T_button";
 import AccountMenu from "../../components/loggedInTile";
+import { useContext } from "react";
+import { GlobalContext } from "../../globalStates/State";
 
 const Navbar = () => {
     const [showField, setShowField] = useState(false)
+
 
     function handleClick(){
         setShowField(prevState => !prevState)
@@ -31,7 +34,7 @@ const Navbar = () => {
                 p: 0,
                 margin: 1,
             }}>
-                <T_Button path = '/' size = {15} value = "DASHBOARD"/>
+                <T_Button path = '/' size = {15} value = "DASHBOARD" />
                 <MenuItem value = "MOVIES"/>
                 <MenuItem value = "TV SHOWS"/>
                 <T_Button path = '/leaderboard' size = {15} value = "LEADERBOARD"/>
