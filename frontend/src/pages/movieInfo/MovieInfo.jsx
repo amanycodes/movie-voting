@@ -4,7 +4,10 @@ import tileImg from '../../assets/poster.jpg'
 import Button from "../../components/C_button"
 import "../../fonts/LeagueSpartan.ttf"
 
-function MovieInfo(){
+function MovieInfo(props){
+    const movies = props.movieData
+    const neededMovie = movies.find((movie)=> movie.id === props.state)
+    console.log(neededMovie)
     return(
         <Container 
         sx={{
@@ -21,7 +24,7 @@ function MovieInfo(){
             }}>
                 <Box 
                 component="img"
-                src={tileImg}
+                src={`https://image.tmdb.org/t/p/w500${neededMovie.poster_path}`}
                 sx={{
                     width: '200px',
                     height: '100%',
@@ -39,19 +42,19 @@ function MovieInfo(){
                         fontWeight: 700,
                         letterSpacing: '0.1em',
                         fontFamily: 'League Spartan'
-                    }}>JOHN WICK</Typography>
+                    }}>{neededMovie.original_title}</Typography>
                     <Typography variant="h7" sx={{
                         color: 'white',
                         fontSize: '1.26rem',
                         fontWeight: 300,
                         fontFamily: 'League Spartan'
-                    }}>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Soluta at enim ullam eaque esse cupiditate. Dolorem quidem repellendus molestiae, ullam voluptatem velit consequatur obcaecati error perspiciatis, perferendis natus, excepturi suscipit!</Typography>
+                    }}>{neededMovie.overview}</Typography>
                     <Box sx={{
                         display: 'flex',
                         marginRight: 'auto',
                         marginTop: 7
                     }}>
-                        <Button value="TRAILER" size={19} />
+                        <Button value="TRAILER" size={19}  />
                         <Button value="NOMINATE" size={19}/>
                     </Box>
                 </Box>

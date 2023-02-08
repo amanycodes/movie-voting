@@ -19,6 +19,39 @@ import { ThemeContext } from "@emotion/react";
 import { globalState, GlobalContext} from "./globalStates/State";
 
 function App() {
+  const [movies, setMovies] = useState([]);
+    
+    const url = "https://api.themoviedb.org/3/movie/popular?api_key=09801cd0f41d3548096eac7d4a25b6a1&language=en-US&page=1";
+    const Vurl = "http://api.themoviedb.org/3/movie/157336/videos?api_key=09801cd0f41d3548096eac7d4a25b6a1"
+    const Curl = "https://api.themoviedb.org/3/movie/{movie_id}/credits?api_key=09801cd0f41d3548096eac7d4a25b6a1&language=en-US"
+
+    useEffect(() => {
+        fetchMovies();
+    },[]);
+
+    const fetchMovies = async () => {
+        const data = await fetch(url);
+        const movies = await data.json();
+        console.log(movies);
+        setMovies(movies.results);
+    };
+
+//     const fetchMoviesVideos = async () => {
+//       const data = await fetch(Vurl);
+//       const movies = await data.json();
+//       console.log(movies);
+//       setMovies(prevState => ...movies.results, prevState);
+//   };
+
+//   const fetchMoviesCast = async () => {
+//     const data = await fetch(url);
+//     const movies = await data.json();
+//     console.log(movies);
+//     setMovies(movies.results);
+// };
+
+    console.log(...movies)
+
   const [state, setState] = useState(null)
   function changeState(){
     setState(globalState.hoverState)
@@ -28,16 +61,16 @@ function App() {
     <div className="App">
       <BrowserRouter>
       <GlobalContext.Provider value={{globalState}}>
-          <BackgroundImage path = {state}/>
+          <BackgroundImage movieData = {movies} path = {state}/>
           <Navbar/>
           <Routes>
-            <Route path = "/"              element = {<HomePage stateChange={changeState} state={state}/>}/>
+            <Route path = "/"              element = {<HomePage movieData = {movies} stateChange={changeState} state={state}/>}/>
             <Route path = "/login"         element = {<LoginPage        />} />
             <Route path = "/creatorLogin"  element = {<CreatorLoginPage />} />
             <Route path = "/createContest" element = {<CreateContest    />} />
             <Route path = "/adminLogin"    element = {<AdminLogin       />} />
             <Route path = "/leaderboard"   element = {<LeaderBoard      />} />
-            <Route path = "/movieid"   element = {<MovieInfo     />} />
+            <Route path = "/movieid"   element = {<MovieInfo movieData={movies} state={state}   />} />
           </Routes>
       </GlobalContext.Provider>
       </BrowserRouter>
