@@ -6,7 +6,6 @@ import "../fonts/LeagueSpartan.ttf"
 const C_button = (props) => {
     const size = props.size
     return( 
-            <Link to= {`${props.path}`} style={{ textDecoration: 'none' }}>
             <Button variant="contained"
             sx= {{
             borderRadius:7,
@@ -35,7 +34,6 @@ const C_button = (props) => {
                     fontFamily: 'League Spartan' 
                     }}>{props.value}</Typography>
         </Button>
-            </Link>
         
     )
 }

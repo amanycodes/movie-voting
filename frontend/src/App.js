@@ -22,8 +22,6 @@ function App() {
   const [movies, setMovies] = useState([]);
     
     const url = "https://api.themoviedb.org/3/movie/popular?api_key=09801cd0f41d3548096eac7d4a25b6a1&language=en-US&page=1";
-    const Vurl = "http://api.themoviedb.org/3/movie/157336/videos?api_key=09801cd0f41d3548096eac7d4a25b6a1"
-    const Curl = "https://api.themoviedb.org/3/movie/{movie_id}/credits?api_key=09801cd0f41d3548096eac7d4a25b6a1&language=en-US"
 
     useEffect(() => {
         fetchMovies();
