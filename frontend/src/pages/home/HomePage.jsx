@@ -1,10 +1,24 @@
 import { Typography } from "@mui/material"
 import { Box, Container} from "@mui/system"
-import React from "react"
+import React, { useEffect, useState } from "react"
 import Button from "../../components/C_button"
 import Tiles from "../../components/Tiles"
 
 const HomePage = () => {
+    const url = "https://api.themoviedb.org/3/movie/popular?api_key=09801cd0f41d3548096eac7d4a25b6a1&language=en-US&page=1"
+
+    const [movies, setMovies] = useState([])
+
+    useEffect(()=>{
+        fetchMovies()
+    },[])
+
+    const fetchMovies = async ()=>{
+        const data = await fetch(url)
+        const movies = await data.json()
+        console.log(movies.results)
+        setMovies(movies.results)
+    }
     return(
 
         <Container sx={{
@@ -24,7 +38,7 @@ const HomePage = () => {
                     color: 'white',
                     fontWeight: 600,
                     letterSpacing: 2
-                }}>JOHN WICK</Typography>
+                }}>{}</Typography>
                 <Button size ={20} value="Read More" path='/movieid'/>  
                 <Button size ={20} value="Nominate"/>
             </Box> : 
@@ -54,7 +68,7 @@ const HomePage = () => {
                     fontWeight: 600,
                     letterSpacing: 2
                 }}>TOP PICKS:</Typography>
-                <Tiles/>
+                <Tiles key={0} moviesArray = {movies}/>
             </Box>
         </Container>
     )

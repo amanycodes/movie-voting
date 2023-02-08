@@ -4,7 +4,10 @@ import { CardContent, Typography } from "@mui/material";
 import { Box } from '@mui/system';
 import tileImg from '../assets/poster.jpg'
 
-const TileItem = () => {
+const TileItem = (props) => {
+    function handleHover(){
+      console.log(props.path)
+    }
     return(
         <Card sx={{
             width: 140,
@@ -29,7 +32,8 @@ const TileItem = () => {
                     padding: 0
                 }}
                 component='img'
-                src={tileImg}
+                src={`https://images.tmdb.org/t/p/original${props.img}`}
+                onMouseOver={handleHover}
                 />
             </CardContent>
         </Card>

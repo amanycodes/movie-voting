@@ -7,8 +7,8 @@ import { Box, margin } from "@mui/system";
 
 
 
-const Tiles = () => {
-
+const Tiles = (props) => {
+    const movies = props.moviesArray
     const slideLeft = ()=>{
         var slider = document.getElementsByClassName('slider')
         slider.scrollLeft = slider.scrollLeft - 240
@@ -44,17 +44,11 @@ const Tiles = () => {
         whiteSpace: 'nowrap',
         scrollBehavior: 'smooth'
     }}>
-        <TileItem/>
-        <TileItem/>
-        <TileItem/>
-        <TileItem/>
-        <TileItem/>
-        <TileItem/>
-        <TileItem/>
-        <TileItem/>
-        <TileItem/>
-        <TileItem/>
-        <TileItem/>
+       {movies.map((movie)=>{
+        return(
+            <TileItem key={movie.id} img = {movie.poster_path} path={movie.id} />
+        )
+       })}
     </Box>
         <ArrowForwardIosIcon onClick={slideRight} sx={{
                         padding: 2,
