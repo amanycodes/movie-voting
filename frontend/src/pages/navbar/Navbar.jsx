@@ -61,7 +61,7 @@ const Navbar = () => {
                 <SearchIcon />
                 </IconButton>
                  }
-                 {false ? <Button size ={14} value = "Sign In" path= 'login'/> : <AccountMenu />}
+                 {true ? <Button size ={14} value = "Sign In" path= 'login'/> : <AccountMenu />}
                 
             </Box>
         </Container>

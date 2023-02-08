@@ -3,8 +3,23 @@ import { Box, Container} from "@mui/system"
 import React from "react"
 import Button from "../../components/C_button"
 import Tiles from "../../components/Tiles"
+import { useState, useEffect } from "react"
 
 const HomePage = () => {
+    const [movies, setMovies] = useState([]);
+
+    const url = "https://api.themoviedb.org/3/movie/popular?api_key=09801cd0f41d3548096eac7d4a25b6a1&language=en-US&page=1";
+    useEffect(() => {
+        fetchMovies();
+    },[]);
+
+    const fetchMovies = async () => {
+        const data = await fetch(url);
+        const movies = await data.json();
+        console.log(movies);
+        setMovies(movies.results);
+    };
+
     return(
 
         <Container sx={{
@@ -15,7 +30,7 @@ const HomePage = () => {
             flexDirection:'column',
             justifyContent: 'space-between'
         }}>
-        {true ? <Box  sx={{
+        {false ? <Box  sx={{
             paddingTop: 18,
             marginLeft: 13,
             marginRight: 'auto',
@@ -54,7 +69,7 @@ const HomePage = () => {
                     fontWeight: 600,
                     letterSpacing: 2
                 }}>TOP PICKS:</Typography>
-                <Tiles/>
+                <Tiles key={0} moviesArray = {movies}/>
             </Box>
         </Container>
     )
