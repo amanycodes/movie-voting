@@ -16,7 +16,7 @@ const TileItem = (props) => {
     const handleHover = ()=>{
         context.globalState.hoverState = props.path
         console.log(context.globalState.hoverState)
->>>>>>> 752b2be03757f9d88bd395801ee48b12c049040f
+        props.changeId()
     }
     return(
         <Card onMouseOver={handleHover} sx={{

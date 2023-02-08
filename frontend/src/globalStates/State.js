@@ -7,9 +7,8 @@ export const globalStates={
 import { createContext } from "react"
 
 export const globalState = {
-    hoverState: '124563',
-    buttonState: '234'
+    hoverStatei: 505642,
+    hoverState: 505642
 }
 
-export const GlobalContext = createContext('')
->>>>>>> 752b2be03757f9d88bd395801ee48b12c049040f
+export const GlobalContext = createContext(globalState.hoverStatei)

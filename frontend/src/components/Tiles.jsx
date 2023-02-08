@@ -59,7 +59,7 @@ const Tiles = (props) => {
 =======
         {moviesData.map((movie)=>{
             return(
-                <TileItem key = {movie.id} img = {movie.poster_path} path={movie.id}/>
+                <TileItem key = {movie.id} img = {movie.poster_path} path={movie.id} changeId = {props.changeState}/>
             )
         })}
 >>>>>>> 752b2be03757f9d88bd395801ee48b12c049040f
