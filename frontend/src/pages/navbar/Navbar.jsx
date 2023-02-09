@@ -5,16 +5,18 @@ import MenuItem from '../../components/MenuItem'
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import SearchIcon from '@mui/icons-material/Search';
-import { IconButton, Input, TextField } from "@mui/material";
+import { IconButton, Input, TextField, useThemeProps } from "@mui/material";
 import T_Button from "../../components/T_button";
 import AccountMenu from "../../components/loggedInTile";
 import { useContext } from "react";
 import { GlobalContext } from "../../globalStates/State";
 
-const Navbar = () => {
+const Navbar = (props) => {
     const [showField, setShowField] = useState(false)
 
-
+    const movieDropArray = ['latest', 'now_playing', 'popular', 'top_rated', 'upcoming']
+    const profileDropArray = ['Profile', 'My Account', 'Logout']
+    const showArray = ['Drama', 'Comedy', 'Narrative','Fantasy']
     function handleClick(){
         setShowField(prevState => !prevState)
         console.log(showField)
@@ -35,8 +37,8 @@ const Navbar = () => {
                 margin: 1,
             }}>
                 <T_Button path = '/' size = {15} value = "DASHBOARD" />
-                <MenuItem value = "MOVIES"/>
-                <MenuItem value = "TV SHOWS"/>
+                <MenuItem value = "MOVIES" dropArray={movieDropArray} setGenre={props.setGenre}/>
+                <MenuItem value = "TV SHOWS" dropArray={showArray}/>
                 <T_Button path = '/leaderboard' size = {15} value = "LEADERBOARD"/>
             </Box>
 

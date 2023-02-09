@@ -11,7 +11,7 @@ import black from '../assets/blackF2.png'
   const context = useContext(GlobalContext)
 
   const movies = props.movieData
-    
+  console.log(movies)
     const moviePath = movies.map((movie)=>{
       const {id, backdrop_path} = movie
       return ({id, backdrop_path})
