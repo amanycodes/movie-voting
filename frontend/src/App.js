@@ -20,16 +20,18 @@ import { globalState, GlobalContext} from "./globalStates/State";
 
 function App() {
   const [movies, setMovies] = useState([]);
-    const url = "https://api.themoviedb.org/3/movie/popular?api_key=09801cd0f41d3548096eac7d4a25b6a1&language=en-US&page=1";
-
+  const [genre, setGenre] = useState('popular')
+    const url = `https://api.themoviedb.org/3/movie/${genre}?api_key=09801cd0f41d3548096eac7d4a25b6a1&language=en-US&page=1`;
     useEffect(() => {
         fetchMovies();
-    },[]);
+    },[genre]);
+
+
 
     const fetchMovies = async () => {
         const data = await fetch(url);
         const movies = await data.json();
-        console.log(movies);
+        console.log(movies.results);
         setMovies(movies.results);
     };
 
@@ -47,7 +49,9 @@ function App() {
 //     setMovies(movies.results);
 // };
 
-    console.log(...movies)
+  function setGenreInfo(){
+    setGenre(globalState.genreState)
+  } 
 
   const [state, setState] = useState(null)
   function changeState(){
@@ -59,9 +63,9 @@ function App() {
       <BrowserRouter>
       <GlobalContext.Provider value={{globalState}}>
           <BackgroundImage movieData = {movies} path = {state} />
-          <Navbar/>
+          <Navbar setGenre = {setGenreInfo}/>
           <Routes>
-            <Route path = "/"              element = {<HomePage movieData = {movies} stateChange={changeState} state={state}/>}/>
+            <Route path = "/"              element = {<HomePage movieData = {movies} stateChange={changeState} state={state} genre={genre}/>}/>
             <Route path = "/login"         element = {<LoginPage        />} />
             <Route path = "/creatorLogin"  element = {<CreatorLoginPage />} />
             <Route path = "/createContest" element = {<CreateContest    />} />
