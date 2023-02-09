@@ -25,8 +25,11 @@ const T_Button = (props) => {
         }}
         disableElevation>
                 <Typography sx={{
-                    fontSize: size, 
+                    fontSize: '1rem', 
                     color: 'white', 
+                    fontFamily: 'League Spartan',
+                    letterSpacing: '0.1em',
+                    fontWeight: '400'
                     }}>{props.value}</Typography>
         </Button>
             </Link>
