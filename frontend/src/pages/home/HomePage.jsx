@@ -31,7 +31,8 @@ const HomePage = (props) => {
                 <Typography variant="h3" sx={{
                     color: 'white',
                     fontWeight: 600,
-                    letterSpacing: 2
+                    letterSpacing: 2,
+                    width: '600px'
                 }}>{neededMovie.original_title}</Typography>
                 <Link to='/movieid' style={{
                     textDecoration: 'none'

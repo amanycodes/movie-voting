@@ -12,16 +12,11 @@ function MovieInfo(props){
     const Vurl = `http://api.themoviedb.org/3/movie/${props.state}/videos?api_key=09801cd0f41d3548096eac7d4a25b6a1`
     
     const [trailer, setTrailer] = useState()
-    const [castName, setCastName] = useState()
-    let a = []
-
+    const [castName, setCastName] = useState(null)
+    let castShit;
     useEffect(() => {
         fetchTrailer();
-        fetchCast().then(() => {
-            return(
-                a = castName[0]
-            )
-        })
+        fetchCast();
     },[]);
 
     const fetchTrailer = async () => {
@@ -29,32 +24,24 @@ function MovieInfo(props){
         const videos = await data.json();
         setTrailer(videos.results[0].key)
     };
-
-    const Curl = `https://api.themoviedb.org/3/movie/${props.state}/credits?api_key=09801cd0f41d3548096eac7d4a25b6a1&language=en-US`
+    
+    const Curl = `https://api.themoviedb.org/3/movie/${props.state}/credits?api_key=09801cd0f41d3548096eac7d4a25b6a1`
     
     
 
     const fetchCast = async () => {
         const data = await fetch(Curl);
         const castData = await data.json();
-        console.log(castData);
+        console.log(castData.cast);
         setCastName(castData.cast)
-        a=castName
     };
     
-    console.log(a)
-
-    // const castArray = castName.map((obj)=>{
-    //     return (
-    //         obj.name
-    //     )
-    // })
     return(
         <Container 
         sx={{
             marginTop: '2rem',
             marginLeft: '100px',
-            width: '45vw',
+            width: '50vw',
             display: 'flex',
             flexDirection: 'column'
 
@@ -93,7 +80,7 @@ function MovieInfo(props){
                     <Box sx={{
                         display: 'flex',
                         marginRight: 'auto',
-                        marginTop: 7
+                        marginTop: 3
                     }}>
                         <Link sx={{
                             textDecoration: 'none'

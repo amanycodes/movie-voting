@@ -5,6 +5,7 @@ import back from '../assets/background.png'
 import movieBack from '../assets/john wick bg.png'
 import {GlobalContext} from '../globalStates/State'
 import { useState, useEffect } from "react"
+import black from '../assets/blackF2.png'
 
  const BackgroundImage = (props)=> {
   const context = useContext(GlobalContext)
@@ -19,16 +20,28 @@ import { useState, useEffect } from "react"
     let neededMovie = moviePath.find((movie)=> movie.id === props.path )
     console.log(neededMovie)
     return(
+      <>
         <Box component= "img"
         sx={{
             width: '100%',
             height: '100vh',
           position: 'absolute',
           zIndex: -1,
-          objectFit: 'cover'
+          objectFit: 'cover',
+        }}
+          src = {black}
+        />
+        <Box component= "img"
+        sx={{
+            width: '100%',
+            height: '100vh',
+          position: 'absolute',
+          zIndex: -2,
+          objectFit: 'cover',
         }}
         src={props.path ? `https://image.tmdb.org/t/p/original${neededMovie.backdrop_path}` : back}
         />
+      </>
     )
  }
 
