@@ -69,8 +69,7 @@ function MovieInfo(props){
                         fontSize: '2.6rem',
                         fontWeight: 700,
                         letterSpacing: '0.1em',
-                        fontFamily: 'League Spartan',
-                        textTransform: 'uppercase'
+                        fontFamily: 'League Spartan'
                     }}>{neededMovie.original_title}</Typography>
                     <Typography variant="h7" sx={{
                         color: 'white',
