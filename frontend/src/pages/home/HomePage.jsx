@@ -32,7 +32,8 @@ const HomePage = (props) => {
                     color: 'white',
                     fontWeight: 600,
                     letterSpacing: 2,
-                    width: '600px'
+                    textTransform: 'uppercase',
+                    paddingRight: 80 
                 }}>{neededMovie.original_title}</Typography>
                 <Link to='/movieid' style={{
                     textDecoration: 'none'
@@ -42,18 +43,22 @@ const HomePage = (props) => {
                 <Button size ={20} value="Nominate"/>
             </Box> : 
             <Box sx={{
-                paddingTop: 32,
+                paddingTop: 47,
                 color: 'white',
                 textAlign: 'center'
             }}>
                 <Typography variant="h3" sx={{
-                    letterSpacing: 2,
-                    fontWeight: 900
+                    fontWeight: 700,
+                    fontFamily: 'League Spartan',
+                    fontSize: '2.3rem',
+                    letterSpacing: '0.07rem',
+                    wordSpacing: 2
                 }}>WELCOME TO SALTEDPOPCORN.</Typography>
                 <Typography variant="h7" sx={{
-                    letterSpacing: 2,
-                    fontWeight: 300
-                }}>Where you get salty about movies. (And rate them to win Movie Contests. ;))</Typography>
+                    fontWeight: 400,
+                    fontFamily: 'League Spartan',
+                    fontSize: '1rem'
+                }}>Where you get salty about movies.</Typography>
             </Box>}
             <Box sx={{
                 display: 'flex',
@@ -64,9 +69,12 @@ const HomePage = (props) => {
                     paddingBottom: 1,
                     paddingLeft: 12,
                     fontSize: 20,
-                    fontWeight: 600,
-                    letterSpacing: 2
-                }}>TOP PICKS:</Typography>
+                    fontWeight: 400,
+                    letterSpacing: '0.05em',
+                    fontFamily: 'League Spartan',
+                    fontSize: '1.45rem',
+                    textTransform: 'uppercase'
+                }}>top picks</Typography>
                 <Tiles key={0} moviesArray = {movies} changeState={props.stateChange}/>
             </Box>
         </Container>
