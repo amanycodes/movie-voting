@@ -16,7 +16,7 @@ const Navbar = (props) => {
 
     const movieDropArray = ['latest', 'now_playing', 'popular', 'top_rated', 'upcoming']
     const profileDropArray = ['Profile', 'My Account', 'Logout']
-    const showArray = ['Drama', 'Comedy', 'Narrative','Fantasy']
+    const showArray = ['latest', 'popular', 'on_the_air','airing_today', 'top_rated']
     function handleClick(){
         setShowField(prevState => !prevState)
         console.log(showField)
@@ -37,8 +37,8 @@ const Navbar = (props) => {
                 margin: 1,
             }}>
                 <T_Button path = '/' size = {15} value = "DASHBOARD" />
-                <MenuItem value = "MOVIES" dropArray={movieDropArray} setGenre={props.setGenre}/>
-                <MenuItem value = "TV SHOWS" dropArray={showArray}/>
+                <MenuItem value = "MOVIES" dropArray={movieDropArray} setGenre={props.setGenre} setShow={props.setShow} show='movie'/>
+                <MenuItem value = "TV SHOWS" dropArray={showArray} setGenre={props.setGenre} setShow={props.setShow} show='tv'/>
                 <T_Button path = '/leaderboard' size = {15} value = "LEADERBOARD"/>
             </Box>
 

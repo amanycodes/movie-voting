@@ -32,8 +32,7 @@ const HomePage = (props) => {
                     color: 'white',
                     fontWeight: 600,
                     letterSpacing: 2,
-                    textTransform: 'uppercase',
-                    paddingRight: 80 
+                    paddingRight: 90 
                 }}>{neededMovie.original_title}</Typography>
                 <Link to='/movieid' style={{
                     textDecoration: 'none'
