@@ -21,7 +21,7 @@ import black from '../assets/blackF2.png'
     console.log(neededMovie)
     return(
       <>
-        <Box component= "img"
+        {props.path && <Box component= "img"
         sx={{
             width: '100%',
             height: '100vh',
@@ -30,7 +30,7 @@ import black from '../assets/blackF2.png'
           objectFit: 'cover',
         }}
           src = {black}
-        />
+        />}
         <Box component= "img"
         sx={{
             width: '100%',

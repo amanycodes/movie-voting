@@ -11,6 +11,10 @@ export default function BasicMenu(props) {
   const context = React.useContext(GlobalContext)
 
   const handleClick = (event) => {
+    context.globalState.showState = props.show
+    context.globalState.genreState = 'popular'
+    props.setGenre()
+    props.setShow()
     setAnchorEl(event.currentTarget);
   };
 
@@ -20,6 +24,9 @@ export default function BasicMenu(props) {
     props.setGenre()
     setAnchorEl(null);
   };
+  const handleCloseMenu = () => {
+    setAnchorEl(null)
+  }
   const dropArray = props.dropArray
   console.log(dropArray)
 
@@ -54,7 +61,7 @@ export default function BasicMenu(props) {
 
       <Menu 
         id="basic-menu"
-        onClose={handleClose}
+        onClose={handleCloseMenu}
         anchorEl={anchorEl}
         open={open}
         MenuListProps={{
