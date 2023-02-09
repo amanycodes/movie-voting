@@ -8,8 +8,6 @@ import SearchIcon from '@mui/icons-material/Search';
 import { IconButton, Input, TextField, useThemeProps } from "@mui/material";
 import T_Button from "../../components/T_button";
 import AccountMenu from "../../components/loggedInTile";
-import { useContext } from "react";
-import { GlobalContext } from "../../globalStates/State";
 
 const Navbar = (props) => {
     const [showField, setShowField] = useState(false)
