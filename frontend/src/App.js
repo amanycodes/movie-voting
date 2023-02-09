@@ -20,7 +20,6 @@ import { globalState, GlobalContext} from "./globalStates/State";
 
 function App() {
   const [movies, setMovies] = useState([]);
-    
     const url = "https://api.themoviedb.org/3/movie/popular?api_key=09801cd0f41d3548096eac7d4a25b6a1&language=en-US&page=1";
 
     useEffect(() => {
@@ -59,7 +58,7 @@ function App() {
     <div className="App">
       <BrowserRouter>
       <GlobalContext.Provider value={{globalState}}>
-          <BackgroundImage movieData = {movies} path = {state}/>
+          <BackgroundImage movieData = {movies} path = {state} />
           <Navbar/>
           <Routes>
             <Route path = "/"              element = {<HomePage movieData = {movies} stateChange={changeState} state={state}/>}/>
