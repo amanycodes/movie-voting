@@ -54,13 +54,13 @@ function App() {
           <BackgroundImage movieData = {movies} path = {state} />
           <Navbar setGenre = {setGenreInfo} setShow = {setShowInfo}/>
           <Routes>
-            <Route path = "/"              element = {<HomePage movieData = {movies} stateChange={changeState} state={state} genre={genre}/>}/>
+            <Route path = "/"              element = {<HomePage movieData = {movies} stateChange={changeState} state={state} genre={genre} show={show}/>}/>
             <Route path = "/login"         element = {<LoginPage        />} />
             <Route path = "/creatorLogin"  element = {<CreatorLoginPage />} />
             <Route path = "/createContest" element = {<CreateContest    />} />
             <Route path = "/adminLogin"    element = {<AdminLogin       />} />
             <Route path = "/leaderboard"   element = {<LeaderBoard      />} />
-            <Route path = "/movieid"   element = {<MovieInfo movieData={movies} state={state}   />} />
+            <Route path = "/movieid" show={show}  element = {<MovieInfo movieData={movies} state={state}   />} />
           </Routes>
       </GlobalContext.Provider>
       </BrowserRouter>

@@ -28,7 +28,6 @@ export default function BasicMenu(props) {
     setAnchorEl(null)
   }
   const dropArray = props.dropArray
-  console.log(dropArray)
 
   return (
     <div>
@@ -37,6 +36,7 @@ export default function BasicMenu(props) {
         sx = {{
             color: 'white',
             fontFamily: 'League Spartan',
+            fontWeight: '400',
             '&:hover':{
                 color: 'white',
                 backgroundColor: 'rgba(128,0,128,.3)'

@@ -8,13 +8,11 @@ import Tiles from "../../components/Tiles"
 const HomePage = (props) => {
     const movies = props.movieData
     const moviePath = movies.map((movie)=>{
-        const {id, original_title} = movie
-        return ({id, original_title})
+        const {id, original_title, name} = movie
+        return ({id, original_title, name})
       })
-      console.log(props.genre)
     let neededMovie = moviePath.find((movie)=> movie.id === props.state )
     return(
-
         <Container sx={{
             display: 'flex',
             minWidth: '100vw',
@@ -33,7 +31,7 @@ const HomePage = (props) => {
                     fontWeight: 600,
                     letterSpacing: 2,
                     paddingRight: 90 
-                }}>{neededMovie.original_title}</Typography>
+                }}>{props.show === 'movie' ? neededMovie.original_title : neededMovie.name}</Typography>
                 <Link to='/movieid' style={{
                     textDecoration: 'none'
                 }}>
