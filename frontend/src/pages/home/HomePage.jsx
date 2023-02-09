@@ -11,7 +11,7 @@ const HomePage = (props) => {
         const {id, original_title} = movie
         return ({id, original_title})
       })
-
+      console.log(props.genre)
     let neededMovie = moviePath.find((movie)=> movie.id === props.state )
     return(
 
@@ -74,7 +74,8 @@ const HomePage = (props) => {
                     fontFamily: 'League Spartan',
                     fontSize: '1.45rem',
                     textTransform: 'uppercase'
-                }}>top picks</Typography>
+                }}
+                >{props.genre}</Typography>
                 <Tiles key={0} moviesArray = {movies} changeState={props.stateChange}/>
             </Box>
         </Container>

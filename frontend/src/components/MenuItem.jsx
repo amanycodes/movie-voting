@@ -2,17 +2,26 @@ import * as React from 'react';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
+import { GlobalContext } from '../globalStates/State';
 
 
 export default function BasicMenu(props) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
+  const context = React.useContext(GlobalContext)
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
-  const handleClose = () => {
+
+  const handleClose = (name) => {
+    context.globalState.genreState = name
+    console.log(context.globalState.genreState)
+    props.setGenre()
     setAnchorEl(null);
   };
+  const dropArray = props.dropArray
+  console.log(dropArray)
 
   return (
     <div>
@@ -38,13 +47,12 @@ export default function BasicMenu(props) {
         aria-haspopup="true"
         aria-expanded={open ? 'true' : undefined}
         onClick={handleClick}
-        
       >
         {props.value}
       </Button>
 
 
-      <Menu
+      <Menu 
         id="basic-menu"
         onClose={handleClose}
         anchorEl={anchorEl}
@@ -52,16 +60,28 @@ export default function BasicMenu(props) {
         MenuListProps={{
           'aria-labelledby': 'basic-button',
         }}
+        classes={
+          {root:{
+            "&.MuiMenu-root" : {
+              backgroundColor: '#252525'
+            }
+          }}}
       >
-        <MenuItem sx={{
-          transition: '200ms ease-out',
-          '&:hover': {
-            textDecoration: 'underline',
-            textDecorationColor: 'purple',
-          }
-        }} onClick={handleClose}>Profile</MenuItem>
-        <MenuItem  onClick={handleClose}>My account</MenuItem>
-        <MenuItem  onClick={handleClose}>Logout</MenuItem>
+        {dropArray.map((obj)=>{
+          return (
+            <MenuItem sx={{
+              transition: '200ms ease-out',
+              color: 'black',
+              fontFamily: "League Spartan",
+              fontWeight: '400',
+              fontSize: '1.05rem',
+              '&:hover': {
+                textDecoration: 'underline',
+                textDecorationColor: 'purple',
+              }
+            }} onClick={()=>handleClose(obj)}>{obj}</MenuItem>
+          )  
+        })}
       </Menu>
     </div>
   );
