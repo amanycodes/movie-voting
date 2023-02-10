@@ -1,12 +1,21 @@
 import { Typography } from '@mui/material';
 import Button from '@mui/material/Button';
+import { useContext } from 'react';
 import { Link } from "react-router-dom";
+import { GlobalContext } from '../globalStates/State';
 
 const T_Button = (props) => {
     const size = props.size
+    const context = useContext(GlobalContext)
+    function handleClick(){
+        context.globalState.hoverState = null
+        console.log(context.globalState.hoverState)
+        props.setState()
+    }
     return( 
-            <Link to= {`${props.path}`} style={{ textDecoration: 'none' }}>
+            
             <Button variant="text"
+            onClick = {handleClick}
             sx= {{
             padding: 0,
             paddingLeft: 2,
@@ -21,7 +30,6 @@ const T_Button = (props) => {
                 backgroundColor: 'rgba(128,0,128,.3)',
                 transition: '200ms'
             }
-            
         }}
         disableElevation>
                 <Typography sx={{
@@ -32,7 +40,6 @@ const T_Button = (props) => {
                     fontWeight: '400'
                     }}>{props.value}</Typography>
         </Button>
-            </Link>
         
     )
 }

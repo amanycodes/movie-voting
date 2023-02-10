@@ -40,7 +40,7 @@ const HomePage = (props) => {
                 <Button size ={20} value="Nominate"/>
             </Box> : 
             <Box sx={{
-                paddingTop: 47,
+                paddingTop: '40vh',
                 color: 'white',
                 textAlign: 'center'
             }}>

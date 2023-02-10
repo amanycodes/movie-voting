@@ -13,8 +13,10 @@ export default function BasicMenu(props) {
   const handleClick = (event) => {
     context.globalState.showState = props.show
     context.globalState.genreState = 'popular'
+    context.globalState.hoverState = null
     props.setGenre()
     props.setShow()
+    props.setState()
     setAnchorEl(event.currentTarget);
   };
 
@@ -76,7 +78,7 @@ export default function BasicMenu(props) {
       >
         {dropArray.map((obj)=>{
           return (
-            <MenuItem sx={{
+            <MenuItem key = {obj[0]} sx={{
               transition: '200ms ease-out',
               color: 'black',
               fontFamily: "League Spartan",

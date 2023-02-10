@@ -1,12 +1,21 @@
 import { Typography } from '@mui/material';
 import Button from '@mui/material/Button';
+import { useContext } from 'react';
 import { Link } from "react-router-dom";
+import { GlobalContext } from '../globalStates/State';
 
 const R_button = (props) => {
     const size = props.size
+    const context = useContext(GlobalContext)
+    function handleClick(){
+        context.globalState.hoverState = null
+        console.log(context.globalState.hoverState)
+        props.setState()
+    }
     return( 
-            <Link to= {`${props.path}`} style={{ textDecoration: 'none' }}>
+            
             <Button variant="outline"
+            onClick={handleClick}
             sx= {{
             borderRadius:7,
             border: 2,
@@ -29,7 +38,7 @@ const R_button = (props) => {
                     color: 'white', 
                     }}>{props.value}</Typography>
         </Button>
-            </Link>
+            
         
     )
 }

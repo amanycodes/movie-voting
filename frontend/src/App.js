@@ -52,7 +52,7 @@ function App() {
       <BrowserRouter>
       <GlobalContext.Provider value={{globalState}}>
           <BackgroundImage movieData = {movies} path = {state} />
-          <Navbar setGenre = {setGenreInfo} setShow = {setShowInfo}/>
+          <Navbar setGenre = {setGenreInfo} setShow = {setShowInfo} setState={changeState} state={state}/>
           <Routes>
             <Route path = "/"              element = {<HomePage movieData = {movies} stateChange={changeState} state={state} genre={genre} show={show}/>}/>
             <Route path = "/login"         element = {<LoginPage        />} />
@@ -60,7 +60,7 @@ function App() {
             <Route path = "/createContest" element = {<CreateContest    />} />
             <Route path = "/adminLogin"    element = {<AdminLogin       />} />
             <Route path = "/leaderboard"   element = {<LeaderBoard      />} />
-            <Route path = "/movieid" show={show}  element = {<MovieInfo movieData={movies} state={state}   />} />
+            <Route path = "/movieid" show={show}  element = {<MovieInfo movieData={movies} state={state} show={show} />} />
           </Routes>
       </GlobalContext.Provider>
       </BrowserRouter>
