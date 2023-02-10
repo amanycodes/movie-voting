@@ -8,7 +8,7 @@ import "../../fonts/LeagueSpartan.ttf"
 function MovieInfo(props){
     const movies = props.movieData
     const neededMovie = movies.find((movie)=> movie.id === props.state)
-    const Vurl = `http://api.themoviedb.org/3/movie/${props.state}/videos?api_key=09801cd0f41d3548096eac7d4a25b6a1`
+    const Vurl = `http://api.themoviedb.org/3/${props.show}/${props.state}/videos?api_key=09801cd0f41d3548096eac7d4a25b6a1`
     
     const [trailer, setTrailer] = useState()
     const [castName, setCastName] = useState(null)
@@ -16,7 +16,7 @@ function MovieInfo(props){
         fetchTrailer();
         fetchCast();
     },[]);
-    const title = props.show === 'movie'? neededMovie.original_title : neededMovie.name
+    let title = props.show === 'movie'? neededMovie.original_title : neededMovie.name
     const fetchTrailer = async () => {
         const data = await fetch(Vurl);
         const videos = await data.json();
@@ -52,6 +52,7 @@ function MovieInfo(props){
                     height: '100%',
                     borderRadius: '10px'
                 }}>
+            
                 </Box>
                 <Box
                 sx={{

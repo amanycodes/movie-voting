@@ -5,7 +5,7 @@ import back from '../assets/background.png'
 import movieBack from '../assets/john wick bg.png'
 import {GlobalContext} from '../globalStates/State'
 import { useState, useEffect } from "react"
-import black from '../assets/blackF2.png'
+import black from '../assets/blackF4.png'
 
  const BackgroundImage = (props)=> {
   const context = useContext(GlobalContext)
@@ -39,7 +39,7 @@ import black from '../assets/blackF2.png'
           zIndex: -2,
           objectFit: 'cover',
         }}
-        src={props.path ? `https://image.tmdb.org/t/p/original${neededMovie.backdrop_path}` : back}
+        src={props.path ? `https://image.tmdb.org/t/p/w1280${neededMovie.backdrop_path}` : back}
         />
       </>
     )

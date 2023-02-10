@@ -8,6 +8,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import { IconButton, Input, TextField, useThemeProps } from "@mui/material";
 import T_Button from "../../components/T_button";
 import AccountMenu from "../../components/loggedInTile";
+import { Link } from "react-router-dom";
 
 const Navbar = (props) => {
     const [showField, setShowField] = useState(false)
@@ -33,11 +34,11 @@ const Navbar = (props) => {
                 display: 'flex',
                 p: 0,
                 margin: 1,
-            }}>
-                <T_Button path = '/' size = {15} value = "DASHBOARD" />
-                <MenuItem value = "MOVIES" dropArray={movieDropArray} setGenre={props.setGenre} setShow={props.setShow} show='movie'/>
-                <MenuItem value = "TV SHOWS" dropArray={showArray} setGenre={props.setGenre} setShow={props.setShow} show='tv'/>
-                <T_Button path = '/leaderboard' size = {15} value = "LEADERBOARD"/>
+            }}> 
+                <Link to = '/' style={{textDecoration: 'none'}}><T_Button path = '/' size = {15} value = "DASHBOARD" setState =  {props.setState}/></Link> 
+                <Link to = '/' style={{textDecoration: 'none'}}><MenuItem value = "MOVIES" dropArray={movieDropArray} setGenre={props.setGenre} setShow={props.setShow} show='movie' state ={props.state} setState =  {props.setState}/></Link>
+                <Link to = '/' style={{textDecoration: 'none'}}><MenuItem value = "TV SHOWS" dropArray={showArray} setGenre={props.setGenre} setShow={props.setShow} show='tv'state ={props.state} setState =  {props.setState}/></Link>
+                <Link to='/leaderboard' style={{textDecoration: 'none'}}><T_Button path = '/leaderboard' size = {15} value = "LEADERBOARD" setState= {props.setState}/></Link>
             </Box>
 
             {/* right items */}
@@ -64,7 +65,7 @@ const Navbar = (props) => {
                 <SearchIcon />
                 </IconButton>
                  }
-                 {true ? <Button size ={14} value = "Sign In" path= 'login'/> : <AccountMenu />}
+                 {true ? <Link to='/login' style={{textDecoration: 'none'}}><Button size ={14} value = "Sign In" setState={props.setState}/></Link> : <AccountMenu />}
                 
             </Box>
         </Container>
