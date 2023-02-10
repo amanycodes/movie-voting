@@ -8,17 +8,15 @@ import "../../fonts/LeagueSpartan.ttf"
 function MovieInfo(props){
     const movies = props.movieData
     const neededMovie = movies.find((movie)=> movie.id === props.state)
-    console.log(neededMovie)
     const Vurl = `http://api.themoviedb.org/3/movie/${props.state}/videos?api_key=09801cd0f41d3548096eac7d4a25b6a1`
     
     const [trailer, setTrailer] = useState()
     const [castName, setCastName] = useState(null)
-    let castShit;
     useEffect(() => {
         fetchTrailer();
         fetchCast();
     },[]);
-
+    const title = props.show === 'movie'? neededMovie.original_title : neededMovie.name
     const fetchTrailer = async () => {
         const data = await fetch(Vurl);
         const videos = await data.json();
@@ -26,16 +24,12 @@ function MovieInfo(props){
     };
     
     const Curl = `https://api.themoviedb.org/3/movie/${props.state}/credits?api_key=09801cd0f41d3548096eac7d4a25b6a1`
-    
-    
-
     const fetchCast = async () => {
         const data = await fetch(Curl);
         const castData = await data.json();
         console.log(castData.cast);
         setCastName(castData.cast)
     };
-    
     return(
         <Container 
         sx={{
@@ -70,7 +64,7 @@ function MovieInfo(props){
                         fontWeight: 700,
                         letterSpacing: '0.1em',
                         fontFamily: 'League Spartan'
-                    }}>{neededMovie.original_title}</Typography>
+                    }}>{title}</Typography>
                     <Typography variant="h7" sx={{
                         color: 'white',
                         fontSize: '1.26rem',
