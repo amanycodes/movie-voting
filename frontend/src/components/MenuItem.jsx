@@ -14,6 +14,8 @@ export default function BasicMenu(props) {
     context.globalState.showState = props.show
     context.globalState.genreState = 'popular'
     context.globalState.hoverState = null
+    context.globalState.searchState = null
+    props.setSearchInfo()
     props.setGenre()
     props.setShow()
     props.setState()
