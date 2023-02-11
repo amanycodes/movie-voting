@@ -22,19 +22,25 @@ function App() {
   const [movies, setMovies] = useState([]);
   const [genre, setGenre] = useState('popular')
   const [show, setShow] = useState('movie')
-
+  const [search, setSearch] = useState(null)
+  const S_url = `https://api.themoviedb.org/3/search/movie?api_key=09801cd0f41d3548096eac7d4a25b6a1&query=${search}`
     const url = `https://api.themoviedb.org/3/${show}/${genre}?api_key=09801cd0f41d3548096eac7d4a25b6a1&language=en-US&page=1`;
+    const F_url = !search ? url : S_url
     useEffect(() => {
         fetchMovies();
-    },[genre, show]);
+    },[genre, show, F_url]);
 
     const fetchMovies = async () => {
-        const data = await fetch(url);
+        const data = await fetch(F_url);
         const movies = await data.json();
         console.log(movies.results);
         setMovies(movies.results);
     };
-
+  
+    function setSearchInfo(){
+      setSearch(globalState.searchState)
+      }
+    
   function setGenreInfo(){
     setGenre(globalState.genreState)
   } 
@@ -42,6 +48,7 @@ function App() {
   function setShowInfo(){
     setShow(globalState.showState)
   }
+  console.log(search)
   const [state, setState] = useState(null)
   function changeState(){
     setState(globalState.hoverState)
@@ -52,7 +59,7 @@ function App() {
       <BrowserRouter>
       <GlobalContext.Provider value={{globalState}}>
           <BackgroundImage movieData = {movies} path = {state} />
-          <Navbar setGenre = {setGenreInfo} setShow = {setShowInfo} setState={changeState} state={state}/>
+          <Navbar setGenre = {setGenreInfo} setShow = {setShowInfo} setState={changeState} state={state} setSearchInfo={setSearchInfo}/>
           <Routes>
             <Route path = "/"              element = {<HomePage movieData = {movies} stateChange={changeState} state={state} genre={genre} show={show}/>}/>
             <Route path = "/login"         element = {<LoginPage        />} />
