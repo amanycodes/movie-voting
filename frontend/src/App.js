@@ -29,6 +29,7 @@ function App() {
 
     useEffect(() => {
         fetchMovies();
+        
     },[genre, show, F_url]);
 
     const fetchMovies = async () => {
@@ -36,6 +37,8 @@ function App() {
         const movies = await data.json();
         console.log(movies.results);
         setMovies(movies.results);
+        localStorage.setItem('movieData', JSON.stringify(movies))
+        
     };
   
   function setPageInfo(){

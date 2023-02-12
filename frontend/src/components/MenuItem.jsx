@@ -31,8 +31,8 @@ export default function BasicMenu(props) {
   const handleCloseMenu = () => {
     setAnchorEl(null)
   }
-  const dropArray = props.dropArray
-
+  const dropArray = props.dropArray.map((elem)=>{return (elem.toLowerCase()).replace(' ', '_')})
+  console.log(dropArray)
   return (
     <div>
 

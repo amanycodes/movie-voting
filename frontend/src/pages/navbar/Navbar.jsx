@@ -17,9 +17,9 @@ const Navbar = (props) => {
     const context = useContext(GlobalContext)
     context.globalState.searchState = input.replace(/\s/g, '+')
     console.log(context.globalState.searchState)
-    const movieDropArray = ['now_playing', 'popular', 'top_rated', 'upcoming']
+    const movieDropArray = ['Now Playing', 'Popular', 'Top Rated', 'Upcoming']
     const profileDropArray = ['Profile', 'My Account', 'Logout']
-    const showArray = ['popular', 'on_the_air','airing_today', 'top_rated']
+    const showArray = ['Popular', 'On the Air','Airing Today', 'Top Rated']
     function handleClick(){
         context.globalState.hoverState = null
         if(input != ''){
@@ -76,7 +76,7 @@ const Navbar = (props) => {
                     '&:hover':{color:'purple'},
                     color: 'white'
                     }}>
-                <SearchIcon />
+                <SearchIcon  />
                 </IconButton>
                 </Link>
                  
