@@ -6,8 +6,10 @@ import Button from "../../components/C_button"
 import "../../fonts/LeagueSpartan.ttf"
 
 function MovieInfo(props){
-    const movies = props.movieData
-    const neededMovie = movies.find((movie)=> movie.id === props.state)
+    const movies = JSON.parse(localStorage.getItem('movieData'))
+    const moviesInfo = movies.results
+    console.log(moviesInfo)
+    const neededMovie = moviesInfo.find((movie)=> movie.id === JSON.parse(localStorage.getItem('id')))
     const Vurl = `http://api.themoviedb.org/3/${props.show}/${props.state}/videos?api_key=09801cd0f41d3548096eac7d4a25b6a1`
     
     const [trailer, setTrailer] = useState()
@@ -15,8 +17,9 @@ function MovieInfo(props){
     useEffect(() => {
         fetchTrailer();
         fetchCast();
+        
     },[]);
-    let title = props.show === 'movie'? neededMovie.original_title : neededMovie.name
+    let title = props.show === "movie" ? neededMovie.original_title : neededMovie.name
     const fetchTrailer = async () => {
         const data = await fetch(Vurl);
         const videos = await data.json();

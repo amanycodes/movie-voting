@@ -28,6 +28,7 @@ function App() {
     const F_url = !search ? url : S_url
     useEffect(() => {
         fetchMovies();
+        
     },[genre, show, F_url]);
 
     const fetchMovies = async () => {
@@ -35,6 +36,8 @@ function App() {
         const movies = await data.json();
         console.log(movies.results);
         setMovies(movies.results);
+        localStorage.setItem('movieData', JSON.stringify(movies))
+        
     };
   
     function setSearchInfo(){

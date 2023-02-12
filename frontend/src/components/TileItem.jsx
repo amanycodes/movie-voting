@@ -13,6 +13,7 @@ const TileItem = (props) => {
     const handleHover = ()=>{
         context.globalState.hoverState = props.path
         console.log(context.globalState.hoverState)
+        localStorage.setItem('id', JSON.stringify(props.path))
         props.changeId()
     }
     return(

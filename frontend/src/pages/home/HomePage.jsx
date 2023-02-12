@@ -22,7 +22,7 @@ const HomePage = (props) => {
             justifyContent: 'space-between'
         }}>
         {props.state ? <Box  sx={{
-            paddingTop: 18,
+            paddingTop: '20vh',
             marginLeft: 13,
             marginRight: 'auto',
         }} id='hover-action'>
