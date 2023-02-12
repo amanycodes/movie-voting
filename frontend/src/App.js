@@ -23,9 +23,11 @@ function App() {
   const [genre, setGenre] = useState('popular')
   const [show, setShow] = useState('movie')
   const [search, setSearch] = useState(null)
+  const [page, setPage] = useState(1)
   const S_url = `https://api.themoviedb.org/3/search/movie?api_key=09801cd0f41d3548096eac7d4a25b6a1&query=${search}`
-    const url = `https://api.themoviedb.org/3/${show}/${genre}?api_key=09801cd0f41d3548096eac7d4a25b6a1&language=en-US&page=1`;
+    const url = `https://api.themoviedb.org/3/${show}/${genre}?api_key=09801cd0f41d3548096eac7d4a25b6a1&language=en-US&page=${page}`;
     const F_url = !search ? url : S_url
+
     useEffect(() => {
         fetchMovies();
     },[genre, show, F_url]);
@@ -37,9 +39,19 @@ function App() {
         setMovies(movies.results);
     };
   
-    function setSearchInfo(){
-      setSearch(globalState.searchState)
-      }
+  function setPageInfo(){
+    if(page<=20){
+      setPage(prevState =>{
+        return(prevState++)
+      })
+    }
+    else{
+      setPage(1)
+    }
+  }
+  function setSearchInfo(){
+    setSearch(globalState.searchState)
+    }
     
   function setGenreInfo(){
     setGenre(globalState.genreState)
@@ -61,7 +73,7 @@ function App() {
           <BackgroundImage movieData = {movies} path = {state} />
           <Navbar setGenre = {setGenreInfo} setShow = {setShowInfo} setState={changeState} state={state} setSearchInfo={setSearchInfo}/>
           <Routes>
-            <Route path = "/"              element = {<HomePage movieData = {movies} stateChange={changeState} state={state} genre={genre} show={show}/>}/>
+            <Route path = "/"              element = {<HomePage movieData = {movies} stateChange={changeState} state={state} genre={genre} show={show} setPageInfo={setPageInfo}/>}/>
             <Route path = "/login"         element = {<LoginPage        />} />
             <Route path = "/creatorLogin"  element = {<CreatorLoginPage />} />
             <Route path = "/createContest" element = {<CreateContest    />} />
