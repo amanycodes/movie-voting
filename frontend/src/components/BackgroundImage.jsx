@@ -1,10 +1,7 @@
-import { Global } from "@emotion/react"
 import { Box } from "@mui/system"
 import { useContext } from "react"
 import back from '../assets/background.png'
-import movieBack from '../assets/john wick bg.png'
 import {GlobalContext} from '../globalStates/State'
-import { useState, useEffect } from "react"
 import black from '../assets/blackF4.png'
 
  const BackgroundImage = (props)=> {

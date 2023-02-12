@@ -1,6 +1,6 @@
 import { Typography } from "@mui/material"
 import { Box, Container} from "@mui/system"
-import React, { useEffect, useState } from "react"
+import React, { useState } from "react"
 import { Link } from "react-router-dom"
 import Button from "../../components/C_button"
 import Tiles from "../../components/Tiles"

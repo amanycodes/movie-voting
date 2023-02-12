@@ -3,7 +3,7 @@ import {
   BrowserRouter,
   Routes,
 } from "react-router-dom";
-import { useContext, useEffect, useState} from "react";
+import { useEffect, useState} from "react";
 
 //PAGES
 import LoginPage        from "./pages/login/LoginPage"
@@ -15,7 +15,6 @@ import CreatorLoginPage from "./pages/creatorLogin/CreatorLogin"
 import Navbar           from "./pages/navbar/Navbar"     
 import BackgroundImage from "./components/BackgroundImage";
 import MovieInfo from "./pages/movieInfo/MovieInfo";
-import { ThemeContext } from "@emotion/react";
 import { globalState, GlobalContext} from "./globalStates/State";
 
 function App() {

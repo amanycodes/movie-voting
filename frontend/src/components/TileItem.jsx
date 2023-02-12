@@ -1,8 +1,7 @@
 
 import Card from '@mui/material/Card';
-import { CardContent, Typography } from "@mui/material";
+import { CardContent } from "@mui/material";
 import { Box } from '@mui/system';
-import tileImg from '../assets/poster.jpg'
 import { useContext } from 'react';
 import { GlobalContext } from '../globalStates/State';
 
