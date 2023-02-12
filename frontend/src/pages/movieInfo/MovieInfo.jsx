@@ -1,9 +1,10 @@
 import { Grid, Link, Typography } from "@mui/material"
 import { Box, Container } from "@mui/system"
 import { useEffect, useState } from "react"
-import tileImg from '../../assets/poster.jpg'
 import Button from "../../components/C_button"
 import "../../fonts/LeagueSpartan.ttf"
+import Popup from '../../components/Popup'
+
 
 function MovieInfo(props){
     const movies = props.movieData
@@ -30,6 +31,13 @@ function MovieInfo(props){
         console.log(castData.cast);
         setCastName(castData.cast)
     };
+
+    const [displayPopup, setDisplayPopup] = useState(false)
+    function handleNominateClick(){
+        setDisplayPopup(true)
+        console.log(displayPopup)
+    }
+    const nominateMessage = 'you need to be logged in to nominate a movie'
     return(
         <Container 
         sx={{
@@ -84,11 +92,11 @@ function MovieInfo(props){
                             href={`https://www.youtube.com/watch?v=${trailer}`}> 
                             <Button value="TRAILER" size={19}/>
                         </Link>     
-                        <Button value="NOMINATE" size={19}/>
+                        <Button value="NOMINATE" size={19} onClick={handleNominateClick}/>
                     </Box>
                 </Box>
-            </Box
-            >    
+            </Box>   
+            <Popup message={nominateMessage} open={displayPopup} openState={setDisplayPopup}/> 
             <Box sx={{
                 marginTop: '50px'
             }}>

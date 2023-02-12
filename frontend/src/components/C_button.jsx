@@ -3,10 +3,14 @@ import Button from '@mui/material/Button';
 import { Link } from "react-router-dom";
 import "../fonts/LeagueSpartan.ttf"
 
+
+
 const C_button = (props) => {
     const size = props.size
     return( 
-            <Button variant="contained"
+            <Button 
+            variant="contained"
+            onClick={props.onClick}
             sx= {{
             borderRadius:7,
             border: 2,
