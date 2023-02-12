@@ -1,9 +1,8 @@
-import { Container, Grid } from "@mui/material"
+import { Container, IconButton} from "@mui/material"
 import TileItem from "./TileItem"
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-import { Box, margin } from "@mui/system";
-import { useState, useEffect } from "react";
+import { Box} from "@mui/system";
 
 
 
@@ -19,8 +18,7 @@ const Tiles = (props) => {
     }
 
     const slideRight = ()=>{
-        var slider = document.getElementsByClassName('slider')
-        slider.scrollLeft = slider.scrollLeft + 240
+        props.setPageInfo()
     }
     return(
         
@@ -29,6 +27,7 @@ const Tiles = (props) => {
         alignItems: 'center',
         minWidth: '95vw'
     }}>
+    
     <ArrowBackIosNewIcon onClick={slideLeft} sx={{
                     padding: 2,
                     borderRadius: 10,
@@ -56,6 +55,7 @@ const Tiles = (props) => {
         })}
 
     </Box>
+    
         <ArrowForwardIosIcon onClick={slideRight} sx={{
                         padding: 2,
                         borderRadius: 10,
