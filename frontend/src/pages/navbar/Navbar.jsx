@@ -22,8 +22,10 @@ const Navbar = (props) => {
     const showArray = ['Popular', 'On the Air','Airing Today', 'Top Rated']
     function handleClick(){
         context.globalState.hoverState = null
+        context.globalState.genreState = "Search Results:"
         if(input != ''){
         props.setSearchInfo()
+        props.setGenre()
         }
         props.setState()
         setShowField(prevState => !prevState)

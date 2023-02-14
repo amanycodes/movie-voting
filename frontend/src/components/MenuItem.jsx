@@ -23,7 +23,7 @@ export default function BasicMenu(props) {
   };
 
   const handleClose = (name) => {
-    context.globalState.genreState = name
+    context.globalState.genreState = (name.toLowerCase()).replace(' ', '_')
     console.log(context.globalState.genreState)
     props.setGenre()
     setAnchorEl(null);
@@ -31,7 +31,7 @@ export default function BasicMenu(props) {
   const handleCloseMenu = () => {
     setAnchorEl(null)
   }
-  const dropArray = props.dropArray.map((elem)=>{return (elem.toLowerCase()).replace(' ', '_')})
+  const dropArray = props.dropArray
   console.log(dropArray)
   return (
     <div>
