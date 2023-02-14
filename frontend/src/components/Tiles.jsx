@@ -25,7 +25,8 @@ const Tiles = (props) => {
     <Container sx={{
         display: 'flex',
         alignItems: 'center',
-        minWidth: '95vw'
+        minWidth: '95vw',
+        transition: '500ms ease'
     }}>
     
     <ArrowBackIosNewIcon onClick={slideLeft} sx={{
