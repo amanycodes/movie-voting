@@ -1,7 +1,5 @@
 import { Dialog, DialogContentText, Typography } from "@mui/material";
 import ClearIcon from '@mui/icons-material/Clear';
-import { Box } from "@mui/system";
-
 const Popup=(props)=>{
     function handleClose(){
         props.openState(false)

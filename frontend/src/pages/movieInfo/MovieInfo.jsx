@@ -2,7 +2,6 @@ import { Grid, Link, Typography } from "@mui/material"
 import { Box, Container } from "@mui/system"
 import { useEffect, useState } from "react"
 import Button from "../../components/C_button"
-import "../../fonts/LeagueSpartan.ttf"
 import Popup from '../../components/Popup'
 
 

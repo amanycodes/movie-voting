@@ -1,7 +1,6 @@
 import { Typography } from '@mui/material';
 import Button from '@mui/material/Button';
 import { useContext } from 'react';
-import { Link } from "react-router-dom";
 import { GlobalContext } from '../globalStates/State';
 
 const T_Button = (props) => {
