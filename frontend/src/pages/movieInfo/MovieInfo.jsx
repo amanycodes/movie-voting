@@ -8,12 +8,10 @@ import Popup from '../../components/Popup'
 function MovieInfo(props){
     const movies = JSON.parse(localStorage.getItem('movieData'))
     const moviesInfo = movies.results
-    console.log(moviesInfo)
     const neededMovie = moviesInfo.find((movie)=> movie.id === JSON.parse(localStorage.getItem('id')))
     const Vurl = `http://api.themoviedb.org/3/${props.show}/${props.state}/videos?api_key=09801cd0f41d3548096eac7d4a25b6a1`
     
     const [trailer, setTrailer] = useState()
-    const [castName, setCastName] = useState(null)
     useEffect(() => {
         fetchTrailer();
         fetchCast();
@@ -26,13 +24,18 @@ function MovieInfo(props){
         setTrailer(videos.results[0].key)
     };
     
-    const Curl = `https://api.themoviedb.org/3/movie/${props.state}/credits?api_key=09801cd0f41d3548096eac7d4a25b6a1`
+    const Curl = `https://api.themoviedb.org/3/movie/${localStorage.getItem('id')}/credits?api_key=09801cd0f41d3548096eac7d4a25b6a1`
+
     const fetchCast = async () => {
         const data = await fetch(Curl);
         const castData = await data.json();
-        console.log(castData.cast);
-        setCastName(castData.cast)
+        localStorage.setItem('castNames',JSON.stringify(castData))
     };
+
+    const castNames= JSON.parse(localStorage.getItem('castNames')).cast
+    console.log(castNames)
+    const castMap = castNames.map((person)=>{return person.name})
+    console.log(castMap)
 
     const [displayPopup, setDisplayPopup] = useState(false)
     function handleNominateClick(){
@@ -117,42 +120,42 @@ function MovieInfo(props){
                                 fontSize: '1rem',
                                 fontFamily: "League Spartan"
                             }} variant="h6"
-                            >{}</Typography>
+                            >{castMap[0]}</Typography>
                         </Grid>
                         <Grid item xs={4}>
                             <Typography sx={{
                                 color: 'white',
                                 fontSize: '1rem',
                                 fontFamily: "League Spartan"
-                            }} variant="h6">{}</Typography>
+                            }} variant="h6">{castMap[1]}</Typography>
                         </Grid>
                         <Grid item xs={4}>
                             <Typography sx={{
                                 color: 'white',
                                 fontSize: '1rem',
                                 fontFamily: "League Spartan"
-                            }} variant="h6">{}</Typography>
+                            }} variant="h6">{castMap[2]}</Typography>
                         </Grid>
                         <Grid item xs={4}>
                             <Typography sx={{
                                 color: 'white',
                                 fontSize: '1rem',
                                 fontFamily: "League Spartan"
-                            }} variant="h6">{}</Typography>
+                            }} variant="h6">{castMap[3]}</Typography>
                         </Grid>
                         <Grid item xs={4}>
                             <Typography sx={{
                                 color: 'white',
                                 fontSize: '1rem',
                                 fontFamily: "League Spartan"
-                            }} variant="h6">{}</Typography>
+                            }} variant="h6">{castMap[4]}</Typography>
                         </Grid>
                         <Grid item xs={4}>
                             <Typography sx={{
                                 color: 'white',
                                 fontSize: '1rem',
                                 fontFamily: "League Spartan"
-                            }} variant="h6">{}</Typography>
+                            }} variant="h6">{castMap[5]}</Typography>
                         </Grid>
                     </Grid>
                 </Box>
