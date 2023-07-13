@@ -21,6 +21,7 @@ mongoose.connect(process.env.MONGO_URI)
         console.log(error)
     })
 
+
 //routes
 app.use('/movies',movieRoutes)
 app.use('/user', userRoutes)
