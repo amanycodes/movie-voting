@@ -136,7 +136,7 @@ const LoginPage = () => {
                         paddingTop: 1,
                         paddingBottom: 1,
                     }}/>
-                    <InputBase type="text" placeholder = 'Password' sx={{
+                    <InputBase type="password" placeholder = 'Password' sx={{
                         width: 300,
                         backgroundColor: '#D9D9D9',
                         marginBottom: 0,
