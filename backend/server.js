@@ -2,13 +2,13 @@ require('dotenv').config()
 const express = require('express')
 const mongoose = require('mongoose')
 const movieRoutes = require('./routes/movie')
+const userRoutes = require('./routes/user')
 
 //express app
 const app = express()
 
 //middleware
 app.use(express.json()) 
-
 
 //connect to db
 mongoose.connect(process.env.MONGO_URI)
@@ -24,4 +24,4 @@ mongoose.connect(process.env.MONGO_URI)
 
 //routes
 app.use('/movies',movieRoutes)
-
+app.use('/user', userRoutes)
