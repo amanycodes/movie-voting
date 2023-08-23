@@ -1,3 +1,4 @@
+
 const {authUser, registerUser, logoutUser, getUserProfile, updateUserProfile} = require('../controllers/userControllers')
 
 const express = require('express')
