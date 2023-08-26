@@ -1,18 +1,21 @@
 import { Typography } from "@mui/material"
 import { Box, Container} from "@mui/system"
-import React, { useState } from "react"
-import { Link } from "react-router-dom"
+import React, { useContext, useState } from "react"
+import { Link, json } from "react-router-dom"
 import Button from "../../components/C_button"
 import Tiles from "../../components/Tiles"
 import Popup from '../../components/Popup'
+import { MovieContext } from "../../globalContext/context/MovieContext"
 
 const HomePage = (props) => {
-    const movies = props.movieData
+    const {movieObject} = useContext(MovieContext)
+    const movieData = JSON.parse(localStorage.getItem('movieData'))
+    const movies = movieData.results
     const moviePath = movies.map((movie)=>{
         const {id, original_title, name} = movie
         return ({id, original_title, name})
-      })
-    let neededMovie = moviePath.find((movie)=> movie.id === props.state )
+    })
+    let neededMovie = moviePath.find((movie)=> movie.id === movieObject.hover )
     const nominateMessage = 'you need to be logged in to nominate a movie'
     const [displayPopup, setDisplayPopup] = useState(false)
     function handleNominateClick(){
@@ -27,7 +30,7 @@ const HomePage = (props) => {
             flexDirection:'column',
             justifyContent: 'space-between'
         }}>
-        {props.state ? <Box  sx={{
+        {movieObject.hover ? <Box  sx={{
             paddingTop: '20vh',
             marginLeft: 13,
             marginRight: 'auto',
@@ -37,7 +40,7 @@ const HomePage = (props) => {
                     fontWeight: 600,
                     letterSpacing: 2,
                     paddingRight: 90 
-                }}>{props.show === 'movie' ? neededMovie.original_title : neededMovie.name}</Typography>
+                }}>{movieObject.showType === 'movie' ? neededMovie.original_title : neededMovie.name}</Typography>
                 <Link to='/movieid' style={{
                     textDecoration: 'none'
                 }}>
@@ -80,7 +83,7 @@ const HomePage = (props) => {
                     textTransform: 'uppercase'
                 }}
                 >{props.genre}</Typography>
-                <Tiles key={0} moviesArray = {movies} changeState={props.stateChange} setPageInfo={props.setPageInfo}/>
+                <Tiles key={0} moviesArray = {movies}/>
             </Box>
         </Container>
     )

@@ -19,8 +19,8 @@ app.use(cookieParser())
 
 
 //routes
-app.use('/movies',movieRoutes)
-app.use('/user', userRoutes)
+app.use('/api/movies',movieRoutes)
+app.use('/api/user', userRoutes)
 
 //errorhandler
 app.use(notFound)

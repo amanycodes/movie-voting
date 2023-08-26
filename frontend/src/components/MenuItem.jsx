@@ -3,29 +3,24 @@ import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { GlobalContext } from '../globalStates/State';
+import { MovieContext } from '../globalContext/context/MovieContext';
 
 
 export default function BasicMenu(props) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
-  const context = React.useContext(GlobalContext)
+  const {dispatch} = React.useContext(MovieContext)
 
   const handleClick = (event) => {
-    context.globalState.showState = props.show
-    context.globalState.genreState = 'popular'
-    context.globalState.hoverState = null
-    context.globalState.searchState = null
-    props.setSearchInfo()
-    props.setGenre()
-    props.setShow()
-    props.setState()
+    dispatch({type: 'CHANGE_SHOW', payload: props.show})
+    dispatch({type: 'CHANGE_GENRE', payload: 'popular'})
+    dispatch({type: 'CHANGE_HOVER', payload: null})
+    dispatch({type: 'CHANGE_SEARCH', payload: ""})
     setAnchorEl(event.currentTarget);
   };
-
+  
   const handleClose = (name) => {
-    context.globalState.genreState = (name.toLowerCase()).replace(' ', '_')
-    console.log(context.globalState.genreState)
-    props.setGenre()
+    dispatch({type: 'CHANGE_GENRE', payload: (name.toLowerCase()).replace(' ', '_')})
     setAnchorEl(null);
   };
   const handleCloseMenu = () => {
