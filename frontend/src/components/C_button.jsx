@@ -8,6 +8,7 @@ const C_button = (props) => {
     const size = props.size
     return( 
             <Button 
+            type= {props.submit ? props.type : 'button'}
             variant="contained"
             onClick={props.onClick}
             sx= {{

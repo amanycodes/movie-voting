@@ -1,0 +1,25 @@
+{
+  "name": "movie-voting-1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "backend": "nodemon backend/server.js",
+    "frontend": "npm start --prefix frontend",
+    "dev": "concurrently \"npm run backend\" \"npm run frontend\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/amanycodes/movie-voting.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/amanycodes/movie-voting/issues"
+  },
+  "homepage": "https://github.com/amanycodes/movie-voting#readme",
+  "devDependencies": {
+    "concurrently": "^8.2.1"
+  }
+}

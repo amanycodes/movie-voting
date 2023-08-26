@@ -51,10 +51,9 @@ const Tiles = (props) => {
 
         {moviesData.map((movie)=>{
             return(
-                <TileItem key = {movie.id} img = {movie.poster_path} path={movie.id} changeId = {props.changeState}/>
+                <TileItem key = {movie.id} img = {movie.poster_path} path={movie.id}/>
             )
         })}
-
     </Box>
     
         <ArrowForwardIosIcon onClick={slideRight} sx={{

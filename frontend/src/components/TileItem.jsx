@@ -4,16 +4,16 @@ import { CardContent } from "@mui/material";
 import { Box } from '@mui/system';
 import { useContext } from 'react';
 import { GlobalContext } from '../globalStates/State';
+import { MovieContext } from '../globalContext/context/MovieContext';
 
 const TileItem = (props) => {
 
-    const context = useContext(GlobalContext)
-    
+    const {movieObject} = useContext(MovieContext)
+    const {dispatch} = useContext(MovieContext)
     const handleHover = ()=>{
-        context.globalState.hoverState = props.path
-        console.log(context.globalState.hoverState)
+        dispatch({type: 'CHANGE_HOVER', payload: props.path})
+        console.log(movieObject.hover)
         localStorage.setItem('id', JSON.stringify(props.path))
-        props.changeId()
     }
     return(
         <Card onMouseOver={handleHover} sx={{

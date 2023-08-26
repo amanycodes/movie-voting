@@ -1,5 +1,5 @@
 
-import { useState, React, useContext } from "react";
+import { useState, React, useContext, useEffect } from "react";
 import Button from "../../components/R_button"
 import MenuItem from '../../components/MenuItem'
 import Box from '@mui/material/Box';
@@ -9,28 +9,29 @@ import { IconButton, Input } from "@mui/material";
 import T_Button from "../../components/T_button";
 import AccountMenu from "../../components/loggedInTile";
 import { Link } from "react-router-dom";
-import { GlobalContext } from "../../globalStates/State";
+import { MovieContext } from "../../globalContext/context/MovieContext";
+import { authContext } from "../../globalContext/context/AuthContext";
 
 const Navbar = (props) => {
+
+    const {movieObject, dispatch} = useContext(MovieContext)
     const [showField, setShowField] = useState(false)
     const [input, setInput] = useState('')
-    const context = useContext(GlobalContext)
-    context.globalState.searchState = input.replace(/\s/g, '+')
-    console.log(context.globalState.searchState)
+    const {userInfo} = useContext(authContext)
     const movieDropArray = ['Now Playing', 'Popular', 'Top Rated', 'Upcoming']
     const profileDropArray = ['Profile', 'My Account', 'Logout']
     const showArray = ['Popular', 'On the Air','Airing Today', 'Top Rated']
+
     function handleClick(){
-        context.globalState.hoverState = null
-        context.globalState.genreState = "Search Results:"
         if(input != ''){
-        props.setSearchInfo()
-        props.setGenre()
+            dispatch({type: 'CHANGE_SEARCH', payload: input.replace(/\s/g, '+')})
         }
-        props.setState()
+        dispatch({type: 'CHANGE_HOVER', payload: null})
         setShowField(prevState => !prevState)
         console.log(showField)
     }
+
+
     return(
         <Container 
             sx={{
@@ -46,10 +47,10 @@ const Navbar = (props) => {
                 p: 0,
                 margin: 1,
             }}> 
-                <Link to = '/' style={{textDecoration: 'none'}}><T_Button path = '/' size = {15} value = "DASHBOARD" setState =  {props.setState}/></Link> 
-                <Link to = '/' style={{textDecoration: 'none'}}><MenuItem value = "MOVIES" dropArray={movieDropArray} setGenre={props.setGenre} setShow={props.setShow} show='movie' state ={props.state} setState =  {props.setState} setSearchInfo = {props.setSearchInfo}/></Link>
-                <Link to = '/' style={{textDecoration: 'none'}}><MenuItem value = "TV SHOWS" dropArray={showArray} setGenre={props.setGenre} setShow={props.setShow} show='tv'state ={props.state} setState =  {props.setState} setSearchInfo = {props.setSearchInfo}/></Link>
-                <Link to='/leaderboard' style={{textDecoration: 'none'}}><T_Button path = '/leaderboard' size = {15} value = "LEADERBOARD" setState= {props.setState}/></Link>
+                <Link to = '/' style={{textDecoration: 'none'}}><T_Button path = '/' size = {15} value = "DASHBOARD"/></Link> 
+                <Link to = '/' style={{textDecoration: 'none'}}><MenuItem value = "MOVIES" dropArray={movieDropArray}  show='movie'/></Link>
+                <Link to = '/' style={{textDecoration: 'none'}}><MenuItem value = "TV SHOWS" dropArray={showArray} show='tv'/></Link>
+                <Link to='/leaderboard' style={{textDecoration: 'none'}}><T_Button path = '/leaderboard' size = {15} value = "LEADERBOARD"/></Link>
             </Box>
 
             {/* right items */}
@@ -81,9 +82,7 @@ const Navbar = (props) => {
                 <SearchIcon  />
                 </IconButton>
                 </Link>
-                 
-                 {true ? <Link to='/login' style={{textDecoration: 'none'}}><Button size ={14} value = "Sign In" setState={props.setState}/></Link> : <AccountMenu />}
-                
+                {!userInfo ? <Link to='/login' style={{textDecoration: 'none'}}><Button size ={14} value = "Sign In" setState={props.setState}/></Link> : <AccountMenu />}
             </Box>
         </Container>
     )

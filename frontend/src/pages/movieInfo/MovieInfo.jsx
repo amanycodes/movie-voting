@@ -3,6 +3,7 @@ import { Box, Container } from "@mui/system"
 import { useEffect, useState } from "react"
 import Button from "../../components/C_button"
 import Popup from '../../components/Popup'
+import Cast from "../../components/Cast"
 
 
 function MovieInfo(props){
@@ -16,9 +17,9 @@ function MovieInfo(props){
     const [castName, setCastName] = useState(null)
     useEffect(() => {
         fetchTrailer();
-        fetchCast();
-        
+        fetchCast();    
     },[]);
+    
     let title = props.show === "movie" ? neededMovie.original_title : neededMovie.name
     const fetchTrailer = async () => {
         const data = await fetch(Vurl);
@@ -109,52 +110,7 @@ function MovieInfo(props){
                         paddingBottom: 3,
                         fontFamily: 'League Spartan'
                     }} variant="h2">CAST</Typography>
-                    <Grid container spacing={1} rowGap={0.5} 
-                    wrap="wrap">
-                        <Grid item xs={4}>
-                            <Typography sx={{
-                                color: 'white',
-                                fontSize: '1rem',
-                                fontFamily: "League Spartan"
-                            }} variant="h6"
-                            >{}</Typography>
-                        </Grid>
-                        <Grid item xs={4}>
-                            <Typography sx={{
-                                color: 'white',
-                                fontSize: '1rem',
-                                fontFamily: "League Spartan"
-                            }} variant="h6">{}</Typography>
-                        </Grid>
-                        <Grid item xs={4}>
-                            <Typography sx={{
-                                color: 'white',
-                                fontSize: '1rem',
-                                fontFamily: "League Spartan"
-                            }} variant="h6">{}</Typography>
-                        </Grid>
-                        <Grid item xs={4}>
-                            <Typography sx={{
-                                color: 'white',
-                                fontSize: '1rem',
-                                fontFamily: "League Spartan"
-                            }} variant="h6">{}</Typography>
-                        </Grid>
-                        <Grid item xs={4}>
-                            <Typography sx={{
-                                color: 'white',
-                                fontSize: '1rem',
-                                fontFamily: "League Spartan"
-                            }} variant="h6">{}</Typography>
-                        </Grid>
-                        <Grid item xs={4}>
-                            <Typography sx={{
-                                color: 'white',
-                                fontSize: '1rem',
-                                fontFamily: "League Spartan"
-                            }} variant="h6">{}</Typography>
-                        </Grid>
-                    </Grid>
+                    <Cast castArray={castName}/>
                 </Box>
                 <Box sx={{
                 }}>

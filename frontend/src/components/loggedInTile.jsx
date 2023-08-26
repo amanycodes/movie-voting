@@ -11,16 +11,31 @@ import Tooltip from '@mui/material/Tooltip';
 import PersonAdd from '@mui/icons-material/PersonAdd';
 import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
+import { useLogout } from '../hooks/useLogout';
+import { useNavigate } from 'react-router-dom';
 
 export default function AccountMenu() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
+  const {logout} = useLogout()
+  const navigate = useNavigate()
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  const handleLogout = async (e)=>{
+    e.preventDefault()
+    try {
+      logout()
+      navigate('/')
+    } catch (error) {
+      console.log(error)
+    }
+  }
   return (
     <>
       <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
@@ -79,11 +94,14 @@ export default function AccountMenu() {
         </MenuItem>
         <Divider />
         <MenuItem onClick={handleClose}>
+          <button onClick={handleLogout}>
           <ListItemIcon>
             <Logout fontSize="small" />
           </ListItemIcon>
           Logout
+          </button>
         </MenuItem>
+        
       </Menu>
     </>
   );
