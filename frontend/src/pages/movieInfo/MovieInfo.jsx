@@ -1,38 +1,45 @@
 import { Grid, Link, Typography } from "@mui/material"
 import { Box, Container } from "@mui/system"
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import Button from "../../components/C_button"
 import Popup from '../../components/Popup'
 import Cast from "../../components/Cast"
+import { MovieContext } from "../../globalContext/context/MovieContext"
+import Loader from "../../components/Loader"
 
 
-function MovieInfo(props){
+function MovieInfo(){
     const movies = JSON.parse(localStorage.getItem('movieData'))
     const moviesInfo = movies.results
-    console.log(moviesInfo)
+    const {movieObject, dispatch} = useContext(MovieContext)
     const neededMovie = moviesInfo.find((movie)=> movie.id === JSON.parse(localStorage.getItem('id')))
-    const Vurl = `http://api.themoviedb.org/3/${props.show}/${props.state}/videos?api_key=09801cd0f41d3548096eac7d4a25b6a1`
+    const Vurl = `http://api.themoviedb.org/3/${movieObject.showType}/${movieObject.hover}/videos?api_key=09801cd0f41d3548096eac7d4a25b6a1`
     
+    const [loading, setLoading] = useState(true)
     const [trailer, setTrailer] = useState()
     const [castName, setCastName] = useState(null)
+    
     useEffect(() => {
         fetchTrailer();
         fetchCast();    
     },[]);
     
-    let title = props.show === "movie" ? neededMovie.original_title : neededMovie.name
+    let title = movieObject.showType === "movie" ? neededMovie.original_title : neededMovie.name
     const fetchTrailer = async () => {
         const data = await fetch(Vurl);
         const videos = await data.json();
-        setTrailer(videos.results[0].key)
+        const trailerVid = videos.results.find(item => item.name.includes('Trailer'))
+        setTrailer(trailerVid.key)
+        console.log(trailer)
     };
     
-    const Curl = `https://api.themoviedb.org/3/movie/${props.state}/credits?api_key=09801cd0f41d3548096eac7d4a25b6a1`
+    const Curl = `https://api.themoviedb.org/3/movie/${movieObject.hover}/credits?api_key=09801cd0f41d3548096eac7d4a25b6a1`
     const fetchCast = async () => {
         const data = await fetch(Curl);
         const castData = await data.json();
-        console.log(castData.cast);
         setCastName(castData.cast)
+        console.log(castName);
+        setLoading(false)
     };
 
     const [displayPopup, setDisplayPopup] = useState(false)
@@ -110,7 +117,7 @@ function MovieInfo(props){
                         paddingBottom: 3,
                         fontFamily: 'League Spartan'
                     }} variant="h2">CAST</Typography>
-                    <Cast castArray={castName}/>
+                    {loading ? <Loader/> : <Cast castArray = {castName}/>}
                 </Box>
                 <Box sx={{
                 }}>
@@ -120,7 +127,7 @@ function MovieInfo(props){
                         paddingBottom: 3,
                         marginTop: 4,
                         fontFamily: "League Spartan"
-                    }} variant="h2">RATINGS</Typography>
+                    }} variant="h2">VOTES</Typography>
                     <Grid container spacing={4}>
                         <Grid item
                         xs={6}>
@@ -128,7 +135,7 @@ function MovieInfo(props){
                                 color: 'white',
                                 fontSize: '1rem',
                                 fontFamily: "League Spartan"
-                            }} variant="h6">IMDB: 9.5</Typography>
+                            }} variant="h6">Vote Count : {neededMovie.vote_count}</Typography>
                         </Grid>
                         <Grid item
                         xs={6}>
@@ -136,7 +143,7 @@ function MovieInfo(props){
                                 color: 'white',
                                 fontSize: '1rem',
                                 fontFamily: "League Spartan"
-                            }} variant="h6">Rotten Tomatoes: 4.5</Typography>
+                            }} variant="h6">Vote Average : {neededMovie.vote_average}</Typography>
                         </Grid>
                     </Grid>    
                 </Box>

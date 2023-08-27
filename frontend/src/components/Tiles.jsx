@@ -3,6 +3,8 @@ import TileItem from "./TileItem"
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import { Box} from "@mui/system";
+import { useContext } from "react";
+import { MovieContext } from "../globalContext/context/MovieContext";
 
 
 
@@ -10,7 +12,6 @@ import { Box} from "@mui/system";
 const Tiles = (props) => {
 
     const moviesData = props.moviesArray
-
 
     const slideLeft = ()=>{
         var slider = document.getElementsByClassName('slider')
