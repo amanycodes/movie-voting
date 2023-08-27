@@ -1,12 +1,12 @@
 import { Box, Typography } from "@mui/material";
 import tileImg from "../assets/poster.jpg"
  
-function Item(){
+function Item(props){
     return (
     <Box sx={{
         display: 'flex',
         justifyContent: 'space-between',
-        background: 'rgba(217,217,217,0.65)',
+        background: 'rgba(217,217,217,0.8)',
         borderRadius: '10px',
         margin: '0rem 10rem',
         padding: '0.4rem 3rem'
@@ -21,38 +21,42 @@ function Item(){
             <Typography sx={{
                 fontFamily: 'League Spartan',
                 fontWeight: 400,
-                fontSize: '2.3rem',
+                fontSize: '2rem',
                 marginRight: 6
-            }}>1</Typography>
-            <Box component='img' src={tileImg} sx={{
+            }}>{props.number}</Typography>
+            <Box component='img' src={`https://image.tmdb.org/t/p/w500${props.image}`} sx={{
                 width: '120px',
                 height: '160px',
-                borderRadius: '5px'
-            }}></Box>
+                borderRadius: '10px',
+                objectFit: 'cover',
+            }}/>
             <Typography sx={{
                 fontFamily: 'League Spartan',
                 fontWeight: 400,
-                fontSize: '2.3rem',
+                fontSize: '2rem',
                 letterSpacing: 1.5,
-                wordSpacing: 1
-            }}>JOHN VICK</Typography>
+            }}>{props.name}</Typography>
         </Box>
         <Box sx={{
             display: 'flex',
-            flexDirection: 'column',
+            flexDirection: 'row',
             justifyContent: 'center',
+            alignContent: 'center',
+            alignItems:'center',
             paddingRight: 4,
             gap: '0px'
         }}>
             <Typography sx={{
+                fontSize: '1rem',
                 fontFamily: 'League Spartan',
-                marginBottom: -1
+                paddingRight: '15px'
             }}>VOTES</Typography>
             <Typography sx={{
+                color: 'green',
                 fontFamily: 'League Spartan',
-                fontSize: '2.3rem',
+                fontSize: '1.5rem',
                 fontWeight: 400
-            }}>50</Typography>
+            }}>{props.count}</Typography>
         </Box>
     </Box>
     )    

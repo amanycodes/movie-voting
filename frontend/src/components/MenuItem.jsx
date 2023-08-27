@@ -12,14 +12,13 @@ export default function BasicMenu(props) {
   const {dispatch} = React.useContext(MovieContext)
 
   const handleClick = (event) => {
-    dispatch({type: 'CHANGE_SHOW', payload: props.show})
-    dispatch({type: 'CHANGE_GENRE', payload: 'popular'})
+    setAnchorEl(event.currentTarget);
     dispatch({type: 'CHANGE_HOVER', payload: null})
     dispatch({type: 'CHANGE_SEARCH', payload: ""})
-    setAnchorEl(event.currentTarget);
   };
   
   const handleClose = (name) => {
+    dispatch({type: 'CHANGE_SHOWTYPE', payload: props.show})
     dispatch({type: 'CHANGE_GENRE', payload: (name.toLowerCase()).replace(' ', '_')})
     setAnchorEl(null);
   };

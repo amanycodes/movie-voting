@@ -1,5 +1,6 @@
 import { createContext, useReducer, useEffect, useState } from "react";
 import MovieReducers from "../reducers/MovieReducers";
+import LinerLoader from "../../components/LinerLoader";
 
 export const MovieContext = createContext();
 
@@ -29,11 +30,11 @@ const MovieContextProvider = ({ children }) => {
 
   useEffect(() => {
     fetchMovies();
-  }, [movieObject.showType, movieObject.genre, F_url]);
+  }, [movieObject.showType, movieObject.genre, F_url, movieObject, url]);
 
   return (
     <MovieContext.Provider value={{ movieObject, dispatch }}>
-      {!loading ? children : <>Loading...</>}
+      {!loading ? children : <LinerLoader/>}
     </MovieContext.Provider>
   );
 };

@@ -1,16 +1,23 @@
-import { Typography } from '@mui/material'
+import { Grid, Typography } from '@mui/material'
 import React from 'react'
 
-const Cast = (castArray) => {
-    const a = castArray.castArray
-    const b = [{aman:'yadav'}, {yadav:'aman'}]
-    console.log(b.length)
-    setTimeout(()=>{console.log(a)}, 1000)
-    
+const Cast = (props) => {
+  console.log(props.castArray)
   return (
-    <div>
-        <Typography></Typography>
-    </div>
+    <Grid container spacing={3} sx={{
+      paddingBottom: 3
+    }}>
+      {props.castArray.map((cast, index)=>{
+        if(index < 5){
+        return (<Grid item>
+          <Typography sx={{
+            color: 'white',
+            fontSize: '16px',
+            fontFamily: 'League Spartan'}}>{cast.name}</Typography>
+        </Grid>)
+        }
+      })}
+    </Grid>
   )
 }
 

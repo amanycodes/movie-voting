@@ -3,14 +3,13 @@ import Button from '@mui/material/Button';
 import { useContext } from 'react';
 import { Link } from "react-router-dom";
 import { GlobalContext } from '../globalStates/State';
+import { MovieContext } from '../globalContext/context/MovieContext';
 
 const R_button = (props) => {
     const size = props.size
-    const context = useContext(GlobalContext)
+    const {dispatch} = useContext(MovieContext)
     function handleClick(){
-        context.globalState.hoverState = null
-        console.log(context.globalState.hoverState)
-        props.setState()
+        dispatch({type: 'CHANGE_HOVER', payload: null})
     }
     return( 
             
