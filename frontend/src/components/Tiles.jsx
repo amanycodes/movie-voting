@@ -1,78 +1,118 @@
-import { Container, IconButton} from "@mui/material"
-import TileItem from "./TileItem"
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-import { Box} from "@mui/system";
-import { useContext } from "react";
-import { MovieContext } from "../globalContext/context/MovieContext";
+import { Container } from "@mui/material";
+import TileItem from "./TileItem";
+import { useEffect } from "react";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import styled from "styled-components";
 
-
-
-
-const Tiles = (props) => {
-
-    const moviesData = props.moviesArray
-
-    const slideLeft = ()=>{
-        var slider = document.getElementsByClassName('slider')
-        slider.scrollLeft = slider.scrollLeft - 240
+const StyledSlider = styled(Slider)`
+  .slick-track {
+    display: flex;
+    gap: 16px;
+    padding: 20px 0;
+  }
+  
+  .slick-prev, .slick-next {
+    z-index: 1;
+    width: 40px;
+    height: 40px;
+    &:before {
+      font-size: 40px;
+      color: purple;
+      opacity: 0.5;
     }
-
-    const slideRight = ()=>{
-        props.setPageInfo()
+    &:hover:before {
+      opacity: 1;
     }
-    return(
-        
-    <Container sx={{
-        display: 'flex',
-        alignItems: 'center',
-        minWidth: '95vw',
-        transition: '500ms ease'
-    }}>
-    
-    <ArrowBackIosNewIcon onClick={slideLeft} sx={{
-                    padding: 2,
-                    borderRadius: 10,
-                    marginTop: 'auto',
-                    marginBottom: 'auto',
-                    color: 'white', 
-                    fontSize: 30,
-                    '&:hover':{
-                        color: 'white',
-                        backgroundColor: 'rgba(128,0,128,.3)',
-                        transition: '200ms'
-                    }
-                }} />
-    <Box className="slider" sx={{
-        height: '100%',
-        overflowX: 'scroll',
-        whiteSpace: 'nowrap',
-        scrollBehavior: 'smooth',
-    }}>
+  }
+  
+  .slick-prev {
+    left: -50px;
+  }
+  
+  .slick-next {
+    right: -50px;
+  }
+`;
 
-        {moviesData.map((movie)=>{
-            return(
-                <TileItem key = {movie.id} img = {movie.poster_path} path={movie.id}/>
-            )
-        })}
-    </Box>
-    
-        <ArrowForwardIosIcon onClick={slideRight} sx={{
-                        padding: 2,
-                        borderRadius: 10,
-                    marginTop: 'auto',
-                    marginBottom: 'auto',
-                        color: 'white', 
+const Tiles = ({ moviesArray, setPageInfo }) => {
+  useEffect(() => {
+    // Preload images for smooth carousel
+    moviesArray?.forEach(movie => {
+      const img = new Image();
+      img.src = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
+    });
+  }, [moviesArray]);
 
-                        fontSize: 30,
-                        '&:hover':{
-                            color: 'white',
-                            backgroundColor: 'rgba(128,0,128,.3)',
-                            transition: '200ms'
-                        }
-                    }}/>
+  const settings = {
+    dots: false,
+    infinite: false,
+    speed: 500,
+    slidesToShow: 5,
+    slidesToScroll: 5,
+    initialSlide: 0,
+    lazyLoad: 'ondemand',
+    responsive: [
+      {
+        breakpoint: 1400,
+        settings: {
+          slidesToShow: 4,
+          slidesToScroll: 4,
+        }
+      },
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 3,
+        }
+      },
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+        }
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        }
+      }
+    ],
+    afterChange: (current) => {
+      // Load more movies when reaching end of carousel
+      if (current + settings.slidesToShow >= moviesArray?.length - 1) {
+        setPageInfo?.();
+      }
+    }
+  };
+
+  if (!moviesArray?.length) return null;
+
+  return (
+    <Container 
+      maxWidth="xl" 
+      sx={{
+        py: 2,
+        px: { xs: 2, md: 6 },
+        position: 'relative'
+      }}
+    >
+      <StyledSlider {...settings}>
+        {moviesArray.map((movie) => (
+          <TileItem
+            key={movie.id}
+            img={movie.poster_path}
+            path={movie.id}
+          />
+        ))}
+      </StyledSlider>
     </Container>
-    )
-}
+  );
+};
 
-export default Tiles
+export default Tiles;
