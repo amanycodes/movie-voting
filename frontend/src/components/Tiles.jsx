@@ -5,22 +5,50 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import styled from "styled-components";
+import Loader from "./Loader";
+
+const CarouselWrapper = styled.div`
+  width: 100%;
+  max-width: 100vw;
+  overflow: hidden;
+  position: relative;
+`;
+
+const StyledContainer = styled(Container)`
+  padding: 2rem 4rem;
+  position: relative;
+  margin: 0 auto;
+  max-width: 1600px !important;
+
+  @media (max-width: 1024px) {
+    padding: 2rem 3rem;
+  }
+
+  @media (max-width: 768px) {
+    padding: 2rem 2rem;
+  }
+`;
 
 const StyledSlider = styled(Slider)`
+  .slick-list {
+    overflow: visible;
+  }
+
   .slick-track {
     display: flex;
     gap: 16px;
-    padding: 20px 0;
+    margin-left: 0;
   }
   
   .slick-prev, .slick-next {
-    z-index: 1;
+    z-index: 2;
     width: 40px;
     height: 40px;
     &:before {
       font-size: 40px;
-      color: purple;
+      color: #9c27b0;
       opacity: 0.5;
+      transition: opacity 0.2s ease;
     }
     &:hover:before {
       opacity: 1;
@@ -28,11 +56,31 @@ const StyledSlider = styled(Slider)`
   }
   
   .slick-prev {
-    left: -50px;
+    left: -20px;
+    @media (max-width: 1024px) {
+      left: -15px;
+    }
+    @media (max-width: 768px) {
+      left: -15px;
+    }
   }
   
   .slick-next {
-    right: -50px;
+    right: -25px;
+    @media (max-width: 1024px) {
+      right: -20px;
+    }
+    @media (max-width: 768px) {
+      right: -20px;
+    }
+  }
+
+  .slick-slide {
+    transition: transform 0.3s ease;
+    margin: 0 8px;
+    &:hover {
+      transform: scale(1.02);
+    }
   }
 `;
 
@@ -48,9 +96,9 @@ const Tiles = ({ moviesArray, setPageInfo }) => {
   const settings = {
     dots: false,
     infinite: false,
-    speed: 500,
-    slidesToShow: 5,
-    slidesToScroll: 5,
+    speed: 400,
+    slidesToShow: 6,
+    slidesToScroll: 6,
     initialSlide: 0,
     lazyLoad: 'ondemand',
     responsive: [
@@ -91,27 +139,24 @@ const Tiles = ({ moviesArray, setPageInfo }) => {
     }
   };
 
-  if (!moviesArray?.length) return null;
+  if (!moviesArray?.length) {
+    return <Loader text="Loading Movies" />;
+  }
 
   return (
-    <Container 
-      maxWidth="xl" 
-      sx={{
-        py: 2,
-        px: { xs: 2, md: 6 },
-        position: 'relative'
-      }}
-    >
-      <StyledSlider {...settings}>
-        {moviesArray.map((movie) => (
-          <TileItem
-            key={movie.id}
-            img={movie.poster_path}
-            path={movie.id}
-          />
-        ))}
-      </StyledSlider>
-    </Container>
+    <CarouselWrapper>
+      <StyledContainer maxWidth="sm">
+        <StyledSlider {...settings}>
+          {moviesArray.map((movie) => (
+            <TileItem
+              key={movie.id}
+              img={movie.poster_path}
+              path={movie.id}
+            />
+          ))}
+        </StyledSlider>
+      </StyledContainer>
+    </CarouselWrapper>
   );
 };
 

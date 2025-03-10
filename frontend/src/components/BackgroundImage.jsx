@@ -1,91 +1,137 @@
-import { Box } from "@mui/system"
-import { useContext, useState, useEffect } from "react"
-import back from '../assets/background.png'
-import black from '../assets/blackF4.png'
-import { MovieContext } from "../globalContext/context/MovieContext"
+import { useContext, useState, useEffect, useCallback } from "react";
+import styled from "styled-components";
+import back from '../assets/background.png';
+import { MovieContext } from "../globalContext/context/MovieContext";
 
-const BackgroundImage = () => {
+const BackgroundWrapper = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -2;
+  overflow: hidden;
+`;
+
+const ImageOverlay = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    rgba(26, 26, 26, 0.7) 0%,
+    rgba(26, 26, 26, 0.9) 100%
+  );
+  z-index: 1;
+  pointer-events: none;
+`;
+
+const BackgroundImage = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url(${props => props.src});
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  transition: opacity 0.5s ease-in-out;
+  opacity: ${props => props.isLoaded ? 1 : 0};
+`;
+
+const BackgroundComponent = () => {
   const { movieObject } = useContext(MovieContext);
-  const [backdropPath, setBackdropPath] = useState(null);
+  const [currentImage, setCurrentImage] = useState(back);
+  const [isLoaded, setIsLoaded] = useState(true);
+  const [imageCache, setImageCache] = useState({});
+
+  const preloadImage = useCallback((url) => {
+    return new Promise((resolve, reject) => {
+      if (imageCache[url]) {
+        resolve(url);
+        return;
+      }
+
+      const img = new Image();
+      img.src = url;
+      img.onload = () => {
+        setImageCache(prev => ({ ...prev, [url]: true }));
+        resolve(url);
+      };
+      img.onerror = () => reject(new Error('Failed to load image'));
+    });
+  }, [imageCache]);
+
+  const fetchMovieDetails = useCallback(async () => {
+    if (!movieObject.hover) {
+      setCurrentImage(back);
+      setIsLoaded(true);
+      return;
+    }
+
+    try {
+      // First try to get from localStorage
+      const movieData = JSON.parse(localStorage.getItem('movieData'));
+      let backdropPath = null;
+
+      if (movieData?.results) {
+        const foundMovie = movieData.results.find(movie => movie.id === movieObject.hover);
+        if (foundMovie?.backdrop_path) {
+          backdropPath = foundMovie.backdrop_path;
+        }
+      }
+
+      // If not found in localStorage, fetch from API
+      if (!backdropPath) {
+        const mediaType = movieObject.showType || 'movie';
+        const response = await fetch(
+          `https://api.themoviedb.org/3/${mediaType}/${movieObject.hover}?api_key=09801cd0f41d3548096eac7d4a25b6a1&language=en-US`
+        );
+
+        if (!response.ok) throw new Error('Failed to fetch movie details');
+        
+        const data = await response.json();
+        backdropPath = data.backdrop_path;
+      }
+
+      if (backdropPath) {
+        setIsLoaded(false);
+        const imageUrl = `https://image.tmdb.org/t/p/original${backdropPath}`;
+        await preloadImage(imageUrl);
+        setCurrentImage(imageUrl);
+        setIsLoaded(true);
+      } else {
+        setCurrentImage(back);
+        setIsLoaded(true);
+      }
+    } catch (error) {
+      console.error('Error fetching/loading backdrop:', error);
+      setCurrentImage(back);
+      setIsLoaded(true);
+    }
+  }, [movieObject.hover, movieObject.showType, preloadImage]);
 
   useEffect(() => {
-    const fetchMovieDetails = async () => {
-      if (movieObject.hover) {
-        try {
-          // Get movie data from localStorage
-          const movieData = JSON.parse(localStorage.getItem('movieData'));
-          
-          if (!movieData || !movieData.results) {
-            console.error('No movie data found in localStorage');
-            return;
-          }
-          
-          // Try to find the movie in the current results
-          const movies = movieData.results;
-          const foundMovie = movies.find(movie => movie.id === movieObject.hover);
-          
-          // If movie is found and has backdrop_path, use it
-          if (foundMovie && foundMovie.backdrop_path) {
-            setBackdropPath(foundMovie.backdrop_path);
-            return;
-          }
-          
-          // If not found or no backdrop_path, fetch details from API
-          const mediaType = movieObject.showType || 'movie';
-          const response = await fetch(
-            `https://api.themoviedb.org/3/${mediaType}/${movieObject.hover}?api_key=09801cd0f41d3548096eac7d4a25b6a1&language=en-US`
-          );
-          
-          if (!response.ok) {
-            throw new Error('Failed to fetch movie details');
-          }
-          
-          const data = await response.json();
-          if (data && data.backdrop_path) {
-            setBackdropPath(data.backdrop_path);
-          } else {
-            setBackdropPath(null);
-          }
-        } catch (error) {
-          console.error('Error fetching movie details:', error);
-          setBackdropPath(null);
-        }
-      } else {
-        setBackdropPath(null);
-      }
-    };
+    const debounceTimer = setTimeout(() => {
+      fetchMovieDetails();
+    }, 100); // Debounce time of 100ms
 
-    fetchMovieDetails();
-  }, [movieObject.hover, movieObject.showType]);
+    return () => clearTimeout(debounceTimer);
+  }, [fetchMovieDetails]);
 
   return (
-    <>
-      {movieObject.hover && (
-        <Box 
-          component="img"
-          sx={{
-            width: '100%',
-            height: '100vh',
-            position: 'absolute',
-            zIndex: -1,
-            objectFit: 'cover',
-          }}
-          src={black}
-        />
-      )}
-      <Box 
-        component="img"
-        sx={{
-          width: '100%',
-          height: '100vh',
-          position: 'absolute',
-          zIndex: -2,
-          objectFit: 'cover',
-        }}
-        src={backdropPath ? `https://image.tmdb.org/t/p/w1280${backdropPath}` : back}
+    <BackgroundWrapper>
+      <BackgroundImage
+        src={currentImage}
+        isLoaded={isLoaded}
+        role="presentation"
       />
-    </>
+      <ImageOverlay />
+    </BackgroundWrapper>
   );
 };
 
-export default BackgroundImage;
+export default BackgroundComponent;

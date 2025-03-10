@@ -1,25 +1,102 @@
 import { useState, React, useContext, useEffect } from "react";
-import Button from "../../components/R_button";
+import NavButton from "../../components/NavButton";
 import MenuItem from '../../components/MenuItem';
-import Box from '@mui/material/Box';
-import Container from '@mui/material/Container';
 import SearchIcon from '@mui/icons-material/Search';
 import CloseIcon from '@mui/icons-material/Close';
-import { IconButton, Input, InputAdornment, Paper, Typography, Popper, ClickAwayListener } from "@mui/material";
-import T_Button from "../../components/T_button";
-import AccountMenu from "../../components/loggedInTile";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { MovieContext } from "../../globalContext/context/MovieContext";
 import { authContext } from "../../globalContext/context/AuthContext";
 import styled from 'styled-components';
+import AccountMenu from "../../components/loggedInTile";
 
-const SearchPopper = styled(Popper)`
+const SearchContainer = styled.div`
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+
+  @media (max-width: 768px) {
+    width: 100%;
+    margin-left: 0;
+    justify-content: center;
+  }
+`;
+
+const SearchWrapper = styled.div`
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: ${props => props.showfield ? 'rgba(255, 255, 255, 0.1)' : 'transparent'};
+  border-radius: 25px;
+  transition: all 0.3s ease;
+  width: ${props => props.showfield ? '300px' : '40px'};
+  height: 40px;
+
+  @media (max-width: 768px) {
+    width: ${props => props.showfield ? '100%' : '40px'};
+  }
+`;
+
+const SearchInput = styled.input`
+  background: transparent;
+  border: none;
+  color: white;
+  padding: 8px 40px 8px 16px;
+  width: 100%;
+  opacity: ${props => props.showfield ? 1 : 0};
+  transition: opacity 0.3s ease;
+  font-family: 'League Spartan';
+
+  &:focus {
+    outline: none;
+  }
+
+  &::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+  }
+`;
+
+const IconWrapper = styled.div`
+  position: absolute;
+  right: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  border-radius: 50%;
+  background: ${props => props.showfield ? 'transparent' : 'rgba(255, 255, 255, 0.1)'};
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.2);
+  }
+
+  svg {
+    color: white;
+    font-size: 20px;
+  }
+`;
+
+const SearchResults = styled.div`
+  position: absolute;
+  top: 100%;
+  right: 0;
   width: 300px;
   max-height: 400px;
   overflow-y: auto;
+  background: white;
   border-radius: 8px;
   box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+  margin-top: 8px;
   z-index: 1400;
+
+  @media (max-width: 768px) {
+    width: 100%;
+    right: 0;
+    left: 0;
+  }
 
   &::-webkit-scrollbar {
     width: 8px;
@@ -35,13 +112,13 @@ const SearchPopper = styled(Popper)`
   }
 `;
 
-const SearchResult = styled(Paper)`
+const SearchResultItem = styled.div`
   padding: 12px;
   cursor: pointer;
-  transition: background-color 0.2s;
   display: flex;
   align-items: center;
   gap: 12px;
+  transition: background-color 0.2s;
 
   &:hover {
     background-color: rgba(128, 0, 128, 0.1);
@@ -53,28 +130,75 @@ const SearchResult = styled(Paper)`
     border-radius: 4px;
     object-fit: cover;
   }
-`;
 
-const StyledInput = styled(Input)`
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 20px;
-  padding: 4px 12px;
-  transition: all 0.3s ease;
-  width: ${props => props.showfield ? '300px' : '40px'};
+  .title {
+    font-family: 'League Spartan';
+    color: #333;
+    font-size: 1rem;
+  }
 
-  &:hover, &:focus {
-    background: rgba(255, 255, 255, 0.15);
+  .type {
+    font-family: 'League Spartan';
+    color: #666;
+    font-size: 0.8rem;
   }
 `;
 
-const Navbar = (props) => {
+const NavContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 1rem 5rem;
+  position: relative;
+
+  @media (max-width: 1024px) {
+    padding: 1rem 2rem;
+  }
+
+  @media (max-width: 768px) {
+    padding: 1rem;
+    flex-direction: column;
+    gap: 1rem;
+  }
+`;
+
+const NavSection = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  @media (max-width: 768px) {
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+`;
+
+const NavWrapper = styled.nav`
+  width: 100%;
+  background: transparent;
+  padding: 0.5rem 0;
+  display: flex;
+  justify-content: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+`;
+
+const SignInButton = styled(NavButton)`
+  &:hover {
+    background-color: rgba(128,0,128,0.5);
+  }
+`;
+
+const Navbar = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const { movieObject, dispatch } = useContext(MovieContext);
     const [showField, setShowField] = useState(false);
     const [input, setInput] = useState('');
     const [searchResults, setSearchResults] = useState([]);
-    const [anchorEl, setAnchorEl] = useState(null);
     const [loading, setLoading] = useState(false);
     const { userInfo } = useContext(authContext);
     const movieDropArray = ['Now Playing', 'Popular', 'Top Rated', 'Upcoming'];
@@ -107,7 +231,6 @@ const Navbar = (props) => {
         return () => clearTimeout(debounceTimer);
     }, [input]);
 
-    // Reset search when navigating to a different page
     useEffect(() => {
         handleCloseSearch();
     }, [location.pathname]);
@@ -117,9 +240,7 @@ const Navbar = (props) => {
             dispatch({ type: 'CHANGE_SEARCH', payload: input.replace(/\s/g, '+') });
             dispatch({ type: 'CHANGE_HOVER', payload: null });
             
-            // Force a refresh if already on home page
             if (location.pathname === '/') {
-                // Reset and then set again to force re-fetch
                 dispatch({ type: 'CHANGE_SEARCH', payload: '' });
                 setTimeout(() => {
                     dispatch({ type: 'CHANGE_SEARCH', payload: input.replace(/\s/g, '+') });
@@ -132,10 +253,10 @@ const Navbar = (props) => {
         }
     };
 
-    const handleSearchClick = (event) => {
+    const handleSearchClick = () => {
+        setShowField(!showField);
         if (!showField) {
-            setShowField(true);
-            setAnchorEl(event.currentTarget);
+            setTimeout(() => document.querySelector('#search-input')?.focus(), 100);
         } else if (input) {
             handleSearch();
         }
@@ -151,13 +272,10 @@ const Navbar = (props) => {
         setShowField(false);
         setInput('');
         setSearchResults([]);
-        setAnchorEl(null);
     };
 
     const handleResultClick = (result) => {
         dispatch({ type: 'CHANGE_HOVER', payload: result.id });
-        
-        // Clear search and navigate
         dispatch({ type: 'CHANGE_SEARCH', payload: '' });
         
         if (location.pathname !== '/') {
@@ -168,102 +286,81 @@ const Navbar = (props) => {
     };
 
     return (
-        <Container 
-            sx={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                minWidth: '90vw',
-                paddingTop: 1,
-                position: 'relative',
-            }}
-        > 
-            <Box sx={{  
-                display: 'flex',
-                p: 0,
-                margin: 1,
-            }}> 
-                <Link to='/' style={{textDecoration: 'none'}}><T_Button path='/' size={15} value="DASHBOARD"/></Link> 
-                <Link to='/' style={{textDecoration: 'none'}}><MenuItem value="MOVIES" dropArray={movieDropArray} show='movie'/></Link>
-                <Link to='/' style={{textDecoration: 'none'}}><MenuItem value="TV SHOWS" dropArray={showArray} show='tv'/></Link>
-                <Link to='/leaderboard' style={{textDecoration: 'none'}}><T_Button path='/leaderboard' size={15} value="LEADERBOARD"/></Link>
-            </Box>
+        <NavWrapper>
+            <NavContainer>
+                <NavSection>
+                    <Link to='/' style={{textDecoration: 'none'}}>
+                        <NavButton value="DASHBOARD"/>
+                    </Link>
+                    <Link to='/leaderboard' style={{textDecoration: 'none'}}>
+                        <NavButton value="LEADERBOARD"/>
+                    </Link>
+                    <MenuItem 
+                        value="MOVIES" 
+                        options={["Now Playing", "Popular", "Top Rated", "Upcoming"]}
+                    />
+                    <MenuItem 
+                        value="TV SHOWS" 
+                        options={["On The Air", "Popular", "Top Rated", "Airing Today"]}
+                    />
+                </NavSection>
+                <NavSection>
+                    <SearchContainer>
+                        <SearchWrapper showfield={showField}>
+                            <SearchInput
+                                id="search-input"
+                                type="text"
+                                placeholder="Search movies, TV shows..."
+                                showfield={showField}
+                                value={input}
+                                onChange={(e) => setInput(e.target.value)}
+                                onKeyPress={handleKeyPress}
+                            />
+                            <IconWrapper 
+                                showfield={showField}
+                                onClick={handleSearchClick}
+                            >
+                                {showField ? <CloseIcon /> : <SearchIcon />}
+                            </IconWrapper>
+                        </SearchWrapper>
 
-            <Box sx={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: 1
-            }}>
-                <ClickAwayListener onClickAway={handleCloseSearch}>
-                    <Box>
-                        <StyledInput
-                            showfield={showField ? 1 : 0}
-                            placeholder={showField ? "Search movies, TV shows..." : ""}
-                            value={input}
-                            onChange={(e) => setInput(e.target.value)}
-                            onKeyPress={handleKeyPress}
-                            disableUnderline={true}
-                            endAdornment={
-                                <InputAdornment position="end">
-                                    <IconButton
-                                        onClick={handleSearchClick}
-                                        sx={{
-                                            color: 'white',
-                                            '&:hover': { color: 'purple' }
-                                        }}
-                                    >
-                                        {showField && input ? <CloseIcon /> : <SearchIcon />}
-                                    </IconButton>
-                                </InputAdornment>
-                            }
-                            sx={{
-                                color: 'white',
-                                fontSize: 14,
-                            }}
-                        />
-                        <SearchPopper
-                            open={showField && searchResults.length > 0}
-                            anchorEl={anchorEl}
-                            placement="bottom-end"
-                        >
-                            <Paper sx={{ bgcolor: '#1a1a1a', color: 'white' }}>
+                        {showField && searchResults.length > 0 && (
+                            <SearchResults>
                                 {searchResults.map((result) => (
-                                    <SearchResult
+                                    <SearchResultItem
                                         key={result.id}
                                         onClick={() => handleResultClick(result)}
-                                        elevation={0}
-                                        sx={{ bgcolor: 'transparent' }}
                                     >
-                                        {result.poster_path && (
-                                            <img
-                                                src={`https://image.tmdb.org/t/p/w92${result.poster_path}`}
-                                                alt={result.title || result.name}
-                                            />
-                                        )}
-                                        <Box>
-                                            <Typography variant="subtitle1" sx={{ color: 'white' }}>
-                                                {result.title || result.name}
-                                            </Typography>
-                                            <Typography variant="caption" sx={{ color: '#999' }}>
-                                                {result.media_type === 'tv' ? 'TV Show' : 'Movie'} • {
-                                                    result.release_date?.split('-')[0] || 
-                                                    result.first_air_date?.split('-')[0]
-                                                }
-                                            </Typography>
-                                        </Box>
-                                    </SearchResult>
+                                        <img
+                                            src={`https://image.tmdb.org/t/p/w92${result.poster_path || result.profile_path}`}
+                                            alt={result.title || result.name}
+                                            onError={(e) => {
+                                                e.target.onerror = null;
+                                                e.target.src = 'https://via.placeholder.com/92x138?text=No+Image';
+                                            }}
+                                        />
+                                        <div>
+                                            <div className="title">{result.title || result.name}</div>
+                                            <div className="type">
+                                                {result.media_type === 'movie' ? 'Movie' : 
+                                                 result.media_type === 'tv' ? 'TV Show' : 'Person'}
+                                            </div>
+                                        </div>
+                                    </SearchResultItem>
                                 ))}
-                            </Paper>
-                        </SearchPopper>
-                    </Box>
-                </ClickAwayListener>
-                {!userInfo ? 
-                    <Link to='/login' style={{textDecoration: 'none'}}>
-                        <Button size={14} value="Sign In" setState={props.setState}/>
-                    </Link> 
-                    : <AccountMenu />
-                }
-            </Box>
-        </Container>
+                            </SearchResults>
+                        )}
+                    </SearchContainer>
+                    {!userInfo ? (
+                        <Link to='/login' style={{textDecoration: 'none'}}>
+                            <NavButton value="SIGN IN" isSignIn={true} />
+                        </Link>
+                    ) : (
+                        <AccountMenu />
+                    )}
+                </NavSection>
+            </NavContainer>
+        </NavWrapper>
     );
 };
 

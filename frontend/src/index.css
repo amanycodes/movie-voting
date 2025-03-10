@@ -6,11 +6,27 @@
 @tailwind utilities;
 
 /* Custom base styles */
-body {
+* {
   margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
   font-family: 'League Spartan', sans-serif;
   background-color: #1a1a1a;
   color: white;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 @font-face {
@@ -27,6 +43,6 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: purple;
+  background-color: #9c27b0;
   border-radius: 5px;
 }

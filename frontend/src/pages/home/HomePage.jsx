@@ -105,14 +105,15 @@ const HomePage = (props) => {
             {movieObject.hover && hoveredMovie ? (
                 <Box sx={{
                     paddingTop: '20vh',
-                    marginLeft: 13,
+                    marginLeft: 32,
                     marginRight: 'auto',
                 }} id='hover-action'>
                     <Typography variant="h3" sx={{
                         color: 'white',
                         fontWeight: 600,
                         letterSpacing: 2,
-                        paddingRight: 90 
+                        paddingRight: 90,
+                        paddingBottom: 4,
                     }}>
                         {getMovieTitle()}
                     </Typography>
@@ -126,14 +127,14 @@ const HomePage = (props) => {
                 </Box>
             ) : (
                 <Box sx={{
-                    paddingTop: '40vh',
+                    paddingTop: '30vh',
                     color: 'white',
                     textAlign: 'center'
                 }}>
                     <Typography variant="h3" sx={{
                         fontWeight: 700,
                         fontFamily: 'League Spartan',
-                        fontSize: '2.3rem',
+                        fontSize: '3rem',
                         letterSpacing: '0.07rem',
                         wordSpacing: 2
                     }}>
@@ -142,7 +143,7 @@ const HomePage = (props) => {
                     <Typography variant="h7" sx={{
                         fontWeight: 400,
                         fontFamily: 'League Spartan',
-                        fontSize: '1rem'
+                        fontSize: '1.5rem'
                     }}>
                         Where you get salty about movies.
                     </Typography>
