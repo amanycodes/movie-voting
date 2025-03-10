@@ -1,9 +1,16 @@
-
 @import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@300;400;600;700&display=swap');
 
-body, html, *{
+/* Tailwind directives */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom base styles */
+body {
   margin: 0;
-  font-family: 'LeagueSpartan', sans-serif;
+  font-family: 'League Spartan', sans-serif;
+  background-color: #1a1a1a;
+  color: white;
 }
 
 @font-face {
@@ -12,5 +19,14 @@ body, html, *{
 }
 
 ::-webkit-scrollbar {
-  display: none;
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: purple;
+  border-radius: 5px;
 }

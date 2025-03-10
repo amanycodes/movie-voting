@@ -1,33 +1,46 @@
-import React, { useContext, useState } from 'react'
+import { useContext, useState } from 'react'
 import { authContext } from '../globalContext/context/AuthContext'
-import { toast } from 'react-toastify'
 
 export const useRegister = () => {
-    const [error, setError] = useState(null)
-    const [isRLoading, setIsRLoading] = useState(null)
-    const {userInfo,dispatch} = useContext(authContext)
+  const [error, setError] = useState(null)
+  const [isLoading, setIsLoading] = useState(false)
+  const { dispatch } = useContext(authContext)
 
-    const register = async (name, email, password) =>{
-        setIsRLoading(true)
-        setError(null)
+  const register = async (name, email, password) => {
+    try {
+      setIsLoading(true)
+      setError(null)
 
-        const response = await fetch('api/user/',{
+      const response = await fetch('api/user/register', {
         method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({name, email, password})
-        })
-        const json = await response.json()
-        if(!response.ok){
-        setIsRLoading(false)
-        setError(json.message)
-        toast.error(error)
-        console.log(error)
-        }
-        if(response.ok){
-        await dispatch({type: 'SET_CRED', payload: json})
-        }
-        console.log(userInfo)
-        setIsRLoading(false)
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        credentials: 'include', // Important for handling cookies
+        body: JSON.stringify({ name, email, password })
+      })
+
+      const data = await response.json()
+
+      if (!response.ok) {
+        throw new Error(data.message || 'Registration failed')
+      }
+
+      // Store user info in localStorage
+      localStorage.setItem('userInfo', JSON.stringify(data))
+
+      // Update auth context
+      dispatch({ type: 'SET_CRED', payload: data })
+
+      return data
+    } catch (err) {
+      setError(err.message || 'An error occurred during registration')
+      throw err
+    } finally {
+      setIsLoading(false)
     }
-    return {register, isRLoading, error}
+  }
+
+  return { register, isLoading, error }
 }

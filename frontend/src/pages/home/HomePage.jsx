@@ -8,7 +8,7 @@ import Popup from '../../components/Popup'
 import { MovieContext } from "../../globalContext/context/MovieContext"
 
 const HomePage = (props) => {
-    const { movieObject } = useContext(MovieContext);
+    const { movieObject, dispatch } = useContext(MovieContext);
     const [movies, setMovies] = useState([]);
     const [hoveredMovie, setHoveredMovie] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
@@ -79,6 +79,12 @@ const HomePage = (props) => {
             : (hoveredMovie.name || 'Unknown Title');
     };
 
+    const handleReadMoreClick = () => {
+        if (hoveredMovie) {
+            dispatch({ type: 'CHANGE_HOVER', payload: hoveredMovie.id });
+        }
+    };
+
     if (isLoading) {
         return (
             <Container sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '80vh' }}>
@@ -113,7 +119,7 @@ const HomePage = (props) => {
                     <Link to='/movieid' style={{
                         textDecoration: 'none'
                     }}>
-                        <Button size={20} value="Read More" path='/movieid'/>  
+                        <Button size={20} value="Read More" onClick={handleReadMoreClick}/>  
                     </Link>    
                     <Button size={20} value="Nominate" onClick={handleNominateClick}/>
                     <Popup message={nominateMessage} open={displayPopup} openState={setDisplayPopup}/> 

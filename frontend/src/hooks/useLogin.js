@@ -1,34 +1,46 @@
-import React, { useContext, useState } from 'react'
+import { useContext, useState } from 'react'
 import { authContext } from '../globalContext/context/AuthContext'
-import { toast } from 'react-toastify'
 
 export const useLogin = () => {
   const [error, setError] = useState(null)
-  const [isLoading, setIsLoading] = useState(null)
-  const {userInfo,dispatch} = useContext(authContext)
+  const [isLoading, setIsLoading] = useState(false)
+  const { dispatch } = useContext(authContext)
 
-  const login = async (email, password) =>{
-    setIsLoading(true)
-    setError(null)
+  const login = async (email, password) => {
+    try {
+      setIsLoading(true)
+      setError(null)
 
-    const response = await fetch('api/user/auth',{
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({email, password})
-    })
-    const json = await response.json()
-    if(!response.ok){
+      const response = await fetch('api/user/auth', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        credentials: 'include', // Important for handling cookies
+        body: JSON.stringify({ email, password })
+      })
+
+      const data = await response.json()
+
+      if (!response.ok) {
+        throw new Error(data.message || 'Failed to login')
+      }
+
+      // Store user info in localStorage
+      localStorage.setItem('userInfo', JSON.stringify(data))
+
+      // Update auth context
+      dispatch({ type: 'SET_CRED', payload: data })
+
+      return data
+    } catch (err) {
+      setError(err.message || 'An error occurred during login')
+      throw err
+    } finally {
       setIsLoading(false)
-      setError(json.message)
-      toast.error(error)
-      console.log(error)
     }
-    if(response.ok){
-      await dispatch({type: 'SET_CRED', payload: json})
-    }
-    console.log(userInfo)
-
-    setIsLoading(false)
   }
-  return {login, isLoading, error}
+
+  return { login, isLoading, error }
 }
